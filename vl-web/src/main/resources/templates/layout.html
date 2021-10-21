@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard</title>
+
+    <script src="/resources/js/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/resources/js/check.js"></script>
+
+
+	<link rel="shortcut icon" href="../resources/assets/img/logo/VL com fundo sem nome2.png" />
+    <link href="/resources/css/styles.css" rel="stylesheet" />
+    <link href="/resources/css/livro.css" rel="stylesheet" />
+    <link href="/resources/css/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="/resources/js/font-awesome/all.min.js"></script>
+</head>
+
+<body class="sb-nav-fixed sb-sidenav-toggled">
+    <nav class="sb-topnav navbar navbar-expand navbar-info bg-dark">
+        
+        <a class="navbar-brand" th:href="@{/}"><img alt="logo" class="logo" src="/resources/assets/img/logo/VL sem fundo sem nome2.png"></a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+            <i class="fas fa-bars" style="color: white;"></i>
+        </button>
+        
+        <h4 class="text-white" style="margin-left: 35px;">Virtual Library</h4>
+
+         <!-- Navbar-->
+        <div class="btn-group dropleft d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" >
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user fa-fw"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/account/perfil-usuario}"><i class="fas fa-user-alt icon-menu"></i>Perfil</a>
+                <a class="dropdown-item" th:href="@{/account/editar-perfil}"><i class="fas fa-user-edit icon-menu"></i>Editar Perfil</a>
+                <a class="dropdown-item" th:href="@{/account/notificacao}"><i class="fas fa-bell icon-menu"></i>Notificação <span
+                        class="badge  badge-pill badge-danger"></span></a>
+                <a class="dropdown-item" th:href="@{/account/my-loans}"><i class="fas fa-shopping-cart icon-menu"></i>Finalizar Emprestimo<span
+                        class="badge  badge-pill badge-danger"></span></a>
+                <a class="dropdown-item" th:href="@{/account/get-out}"><i class="fas fa-sign-out-alt icon-menu"></i>Sair</a>
+            </div>
+        </div>
+
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Menu</div>
+                        <a class="nav-link" th:href="@{/}">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            Home
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Opções</div>
+
+                        
+                        
+                        
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVLConta"
+                            aria-expanded="false">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-user fa-fw"></i>
+                            </div>
+                            Conta
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        
+                        <div class="collapse" id="collapseVLConta" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                            	<a class="nav-link" th:href="@{/account/entrar}"><i class="fas fa-sign-in-alt icon-menu"></i>Login</a>
+                            </nav>
+                        </div>
+                        
+                       <div class="collapse" id="collapseVLConta" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/leitor/register}"><i class="fas fa-user-plus icon-menu"></i>Cadastre-se</a>
+                            </nav>
+                        </div>
+                        
+                        
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVLAdm"
+                            aria-expanded="false">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            Administrador
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        
+                        <div class="collapse" id="collapseVLAdm" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/account/list}"><i class="fas fa-address-book icon-menu"></i>Lista de Usuários</a>
+                            </nav>
+                        </div>
+                        
+                        <div class="collapse" id="collapseVLAdm" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/editora/list}"><i class="fas fa-building icon-menu"></i>Lista de Editoras</a>
+                            </nav>
+                        </div>
+                        
+                        
+                        <div class="collapse" id="collapseVLAdm" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/livro/list-adm}"><i class="fas fa-book-reader icon-menu"></i>Lista de Livros</a>
+                            </nav>
+                        </div>
+                        
+                        <div class="collapse" id="collapseVLAdm" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/emprestimo/entregas}"><i class="fas fa-arrow-circle-up icon-menu"></i>Entregas</a>
+                            </nav>
+                        </div>
+                        
+                        <div class="collapse" id="collapseVLAdm" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/emprestimo/recolhimento}"><i class="fas fa-arrow-circle-down icon-menu"></i>Recolhimentos</a>
+                            </nav>
+                        </div>
+                        
+                         <div class="collapse" id="collapseVLAdm" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/emprestimo/list}"><i class="far fa-list-alt icon-menu"></i>Empréstimos</a>
+                            </nav>
+                        </div>
+                        
+                        
+                        
+                        
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVL"
+                            aria-expanded="false">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            Virtual Library
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        
+                        <div class="collapse" id="collapseVL" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/criadores}"><i class="fas fa-network-wired icon-menu"></i>Criadores</a>
+                            </nav>
+                        </div>
+                        
+                        <div class="collapse" id="collapseVL" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/livro/list}"><i class="fas fa-box-open icon-menu"></i>Acervo</a>
+                            </nav>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logado como:</div>
+                    Adm
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            
+            <main>
+                <div layout:fragment = "body"></div>
+            </main>
+            
+            <footer class="py-4 bg-dark mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Virtual Library - 2021</div>
+                        <div>
+                            <a href="#">Política de privacidade</a>
+                            &middot;
+                            <a href="#">Termos &amp; Condições</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="/resources/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="/resources/js/scripts.js"></script>
+
+    <script src="/resources/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="/resources/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="/resources/assets/demo/datatables-init.js"></script>
+    
+    
+</body>
+
+</html>

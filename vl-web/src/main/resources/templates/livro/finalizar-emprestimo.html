@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Livro Escolhido</title>
+</head>
+<body>
+	<div layout:fragment="body">
+
+
+		<br> <br> <br> <br>
+
+		<h1>VERIFIQUE SEUS DADOS</h1>
+
+		<section class="preencher-envio">
+			<form
+				th:action="@{/livro/emprestrar-livro/{idLivro}/{leitorId} (idLivro = ${idLivro}, leitorId = ${leitor})}"
+				method="post" th:object="${dadosDoUsuario}" class="formulario">
+				<div class="formulario-b">
+					<div class="form-row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="small mb-1" for="staticEmail">Nome</label><input
+									readonly class="form-control py-4" id="inputFirstName"
+									type="text" value="Zézinho" th:field="${dadosDoUsuario.nome}" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="small mb-1" for="inputLastName">Matricula</label><input
+									readonly class="form-control py-4" id="inputLastName"
+									type="text" value="Capixaba"
+									th:field="${dadosDoUsuario.matricula}" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="small mb-1" for="inputEmailAddress">Email</label><input
+							readonly class="form-control py-4" id="inputEmailAddress"
+							type="email" aria-describedby="emailHelp"
+							value="zezinho-capixaba3301@gmail.com"
+							th:field="${dadosDoUsuario.email}" />
+					</div>
+
+
+					<div class="form-row">
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="small mb-1" for="inputTelefone">Telefone</label><input
+									readonly class="form-control py-4" id="inputTelefone"
+									type="text" value="(35) 91234-1234"
+									th:field="${dadosDoUsuario.telefone}" />
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="small mb-1" for="inputEstado">Estado</label><input
+									readonly class="form-control py-4" id="inputLastName"
+									type="text" th:field="${dadosDoUsuario.estado}" />
+							</div>
+						</div>
+
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="small mb-1" for="inputCidade">Cidade</label><input
+									readonly class="form-control py-4" id="inputCidade" type="text"
+									value="Santa Rita do Sapucaí"
+									th:field="${dadosDoUsuario.cidade}" />
+							</div>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="small mb-1" for="inputRua">Rua</label><input
+									readonly class="form-control py-4" id="inputRua" type="text"
+									value="Rua Teste" th:field="${dadosDoUsuario.rua}" />
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="small mb-1" for="inputBairro">Bairro</label><input
+									readonly class="form-control py-4" id="inputBairro" type="text"
+									value="Bairro Teste" th:field="${dadosDoUsuario.bairro}" />
+							</div>
+						</div>
+
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="small mb-1" for="inputNúmero">Número</label><input
+									readonly class="form-control py-4" id="inputNúmero" type="text"
+									value="123" th:field="${dadosDoUsuario.numero}" />
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group mt-4 mb-0 btn-preencher-envio">
+						<button class="btn btn-primary btn-block">Confirmar
+							pedido</button>
+					</div>
+			</form>
+	</div>
+</body>
+</html>

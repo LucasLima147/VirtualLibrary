@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Library</title>
+
+    <script src="../resources/js/jquery/jquery-3.4.1.min.js"></script>
+
+    <link rel="shortcut icon" href="../resources/assets/img/logo/VL com fundo sem nome2.png">
+    <link href="../resources/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../resources/css/livro.css">
+    <link href="../resources/css/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="../resources/js/font-awesome/all.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="sb-nav-fixed">
+
+    <!-- ------------- -->
+
+    <body class="sb-nav-fixed">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+
+                <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+                    <img class="logo" src="../resources/assets/img/logo/VL sem fundo sem nome2.png" alt="">
+                    <div class="collapse navbar-collapse" id="navbar">
+
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="../index.html" class="nav-link">HOME</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="../general/criadores.html" class="nav-link">CRIADORES</a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a href="../livro/acervo.html" class="nav-link">ACERVO</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                    <!-- Navbar Search-->
+                    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Procurar por..." />
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Navbar-->
+                    <div class="btn-group dropleft">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user fa-fw"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="../usuario/perfil-usuario.html">Perfil</a>
+                            <a class="dropdown-item" href="../usuario/editar-perfil.html">Editar Perfil</a>
+                            <a class="dropdown-item" href="../usuario/notificacao.html">Notificação <span
+                                    class="badge  badge-pill badge-danger">1</span></a>
+                            <a class="dropdown-item" href="../index.html">Sair</a>
+                        </div>
+                    </div>
+
+
+
+                </nav>
+
+            </div>
+
+
+            <br><br><br><br><br>
+
+            <h1>Livros em Destaque</h1>
+            <a href="acervo-adm.html" class="btn btn-warning">ACESSAR HTLM ADM: OBS ESSE BOTÃO É APENAS PARA TESTE</a>
+
+            <!-- Livros -->
+            <section class="menu-livro">
+
+                <!-- 
+                Extra small     < 576   .col-
+                Small           >= 576  .col-sm-
+                Medium          >= 768  .col-md-
+                Large           >= 992  .col-lg-
+                Extra large     >=1200  .col-xl-
+            -->
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/senhor-dos-aneis.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O SENHOR DOS ANÉIS</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/a-arte-da-guerra.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">A ARTE DA GUERRA</p>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/coraline.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">CORALINE</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/harry-potter.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">HARRY POTTER</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/hobbit.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O HOBBIT</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/it.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">IT A COISA</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/o-gigante-feliz.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O GIGANTE FELIZ</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Repetição -->
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/senhor-dos-aneis.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O SENHOR DOS ANÉIS</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/a-arte-da-guerra.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">A ARTE DA GUERRA</p>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/coraline.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">CORALINE</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/harry-potter.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">HARRY POTTER</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/hobbit.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O HOBBIT</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/it.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">IT A COISA</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/o-gigante-feliz.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O GIGANTE FELIZ</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/senhor-dos-aneis.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O SENHOR DOS ANÉIS</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/a-arte-da-guerra.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">A ARTE DA GUERRA</p>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/coraline.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">CORALINE</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/harry-potter.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">HARRY POTTER</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/hobbit.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O HOBBIT</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/it.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">IT A COISA</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/o-gigante-feliz.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O GIGANTE FELIZ</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/senhor-dos-aneis.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O SENHOR DOS ANÉIS</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/a-arte-da-guerra.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">A ARTE DA GUERRA</p>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/coraline.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">CORALINE</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/harry-potter.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">HARRY POTTER</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/hobbit.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O HOBBIT</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/it.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">IT A COISA</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/o-gigante-feliz.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O GIGANTE FELIZ</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/senhor-dos-aneis.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O SENHOR DOS ANÉIS</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/a-arte-da-guerra.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">A ARTE DA GUERRA</p>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/coraline.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">CORALINE</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/harry-potter.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">HARRY POTTER</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/hobbit.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O HOBBIT</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro" src="../resources/assets/img/capa-livros/it.png"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">IT A COISA</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card livro">
+                    <a href="descricao-livro.html">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/o-gigante-feliz.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text nome-livro">O GIGANTE FELIZ</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+
+
+            <div id="layoutAuthentication_footer">
+                <footer class="py-4 mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div>Copyright &copy; Virtual Library - 2021</div>
+                            <div>
+                                <a href="#">Política de privacidade</a>
+                                &middot;
+                                <a href="#">Termos &amp; Condições</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <script src="../resources/js/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="../resources/js/scripts.js"></script>
+    </body>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Enviar seu livro</title>
+</head>
+<body>
+	<div layout:fragment="body">
+
+
+
+		<br>
+		<br>
+		<br>
+
+		<main>
+			<div class="container-fluid">
+				<h1 class="mt-4">Adicionar Livro</h1>
+
+
+				<div class="row">
+
+					<div class="mb-2 col-12">
+
+						<div class="mb-2 card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<label for="nome">Nome</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" value="Livro X">
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<label for="desenvolvidoPor">Autor</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" class="form-control"
+											value="Zezinho Capixaba">
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<label for="genero">Gênero</label>
+									</div>
+									<div class="col-sm-9">
+
+										<select class="form-control" id="genero">
+											<option selected>Selecione...</option>
+											<option>Genero 1</option>
+											<option>Genero 2</option>
+											<option>Genero 3</option>
+											<option>Genero 4</option>
+										</select>
+
+									</div>
+								</div>
+
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<label for="descricao">Descrição</label>
+									</div>
+									<div class="col-sm-9">
+										<textarea class="form-control" rows="3"></textarea>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<label for="imagemPrincipal">Capa do livro</label>
+									</div>
+									<div class="col-sm-9">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input"
+												id="imagemPrincipal"> <label
+												class="custom-file-label" for="imagemPrincipal">Escolha
+												a imagem</label>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<p class="p-criar">
+									<strong>OBS: O tamanho da imagem deve ser 350px por
+										450px</strong>
+								</p>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<label for="imagemPrincipal">Arquivo PDF</label>
+									</div>
+									<div class="col-sm-9">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input"
+												id="imagemPrincipal"> <label
+												class="custom-file-label" for="imagemPrincipal">Escolha
+												o arquivo</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="mb-2">
+							<a th:href=@{/usuario/perfil-usuario}
+								class="btn btn-primary col-12 btn-lg"><strong>ENCAMINHAR
+									PARA ANÁLISE</strong></a>
+						</div>
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</main>
+		
+		<br>
+
+
+
+
+
+	</div>
+</body>
+</html>

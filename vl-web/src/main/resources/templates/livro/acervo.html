@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Acervo</title>
+</head>
+<body>
+	<div layout:fragment="body">
+
+		
+
+            <br><br><br><br><br>
+
+            <h1>Livros em Destaque</h1>
+           
+
+            <!-- Livros -->
+            <section class="menu-livro" >
+
+                <!-- 
+                Extra small     < 576   .col-
+                Small           >= 576  .col-sm-
+                Medium          >= 768  .col-md-
+                Large           >= 992  .col-lg-
+                Extra large     >=1200  .col-xl-
+            -->
+
+                <div class="card livro" th:each="livro : ${listaDeLivros}">
+                    <a th:href="@{/livro/detail/{id} (id = ${livro.id})}">
+                        <img class="card-img-top img-livro"
+                            src="../resources/assets/img/capa-livros/senhor-dos-aneis.png" alt="Card image cap">
+                        <div class="card-body">
+                            <label class="card-text nome-livro" th:text="${livro.titulo}">O SENHOR DOS ANÉIS</label>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+body{
+    background-color: #373B69;
+    
+}
+
+footer{
+    height: 65px;
+    background-color: #262950;
+    color: white;
+    text-align: center;
+}
+
+
+.navbar {
+    height:100px;
+}
+
+
+
+.logo1{
+    width: 160px;
+    margin-right: 50px;
+}
+
+.logo{
+    display: block;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer{
+    background-color: #262950;
+    color: white;
+    text-align: center;
+}
+
+.card{
+    box-shadow: 0px 0px 50px rgb(132, 0, 255);
+}
+
+.icon-menu{
+	margin-right: 10px;
+}

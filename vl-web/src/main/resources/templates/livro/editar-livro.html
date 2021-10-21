@@ -1,0 +1,126 @@
+</body>
+</html>
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Editar Livro</title>
+</head>
+<body>
+	<div layout:fragment="body">
+
+
+
+		<br>
+		<br>
+		<br>
+
+
+		<main>
+			<div class="container-fluid">
+				<h1 class="mt-4">Editar Livro</h1>
+
+
+				<form th:action="@{/livro/update}" method="POST" th:object="${livro}">
+					<div class="row">
+	
+						<div class="mb-2 col-12">
+	
+							<div class="mb-2 card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm-3">
+											<label for="titulo">Titulo</label>
+										</div>
+										<div class="col-sm-9">
+											<input id="titulo" type="text" class="form-control" th:field="${livro.titulo}">
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<label for="autor">Autor</label>
+										</div>
+										<div class="col-sm-9">
+											<select class="form-control" id="autor" th:field="${livro.autorId}">
+												<option selected value="-1">Selecione...</option>
+												<option th:each="autor: ${autorList}" th:text="${autor.nome}" 
+												th:value="${autor.id}">Genero 1</option>
+											</select>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<label for="genero">Gênero</label>
+										</div>
+										<div class="col-sm-9" >
+	
+											<select class="form-control" id="genero" th:field="${livro.generoId}">
+												<option selected value="-1">Selecione...</option>
+												<option th:each="genero: ${generoList}" th:text="${genero.nome}"
+												th:value="${genero.id}">Genero 1</option>
+											</select>
+	
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<label for="editora">Editora</label>
+										</div>
+										<div class="col-sm-9">
+										
+											<select class="form-control" id="editora" th:field="${livro.editoraId}">
+												<option selected value="-1">Selecione...</option>
+												<option th:each="editora: ${editoraList}" th:text="${editora.nomeFastasia}"
+												th:value="${editora.id}">Genero 1</option>
+											</select>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<label for="isbn">ISBN</label>
+										</div>
+										<div class="col-sm-9">
+											<input type="text" id="isbn" class="form-control" th:field="${livro.isbn}">
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<label for="dataLancamento">Numero de Páginas</label>
+										</div>
+										<div class="col-sm-9">
+											<input type="number" class="form-control" th:field="${livro.numPaginas}">
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<label for="descricao">Sinopse</label>
+										</div>
+										<div class="col-sm-9">
+											<textarea class="form-control" rows="3" th:field="${livro.sinopse}"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="mb-2">
+								<input type="hidden" th:field="${livro.id}">
+								<button class="btn btn-primary col-12 btn-lg" type="submit"><strong>ADICIONAR</strong></button>
+							</div>
+	
+						</div>
+					</form>
+
+			</div>
+		</main>
+
+
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Lista de Editoras</title>
+</head>
+
+<body>
+	<div layout:fragment="body">
+
+		<br><br><br>
+		<main>
+			<div class="container-fluid">
+				<h1 class="mt-4">Lista de Editoras</h1>
+
+				<div class="row">
+
+
+
+					<div class="mb-2 col-12 col-sm-12">
+
+						<div class="mb-2 card">
+							<div class="card-body">
+
+
+								<div class="table-responsive">
+
+									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+										<div class="col-12">
+											<a th:href="@{/editora/register-editora}" class="btn btn-info col-12"><i
+													class="fas fa-address-book"></i> ADICIONAR EDITORA</a>
+										</div>
+
+										<hr>
+
+										<thead>
+											<tr>
+												<th>Nome Fantasia</th>
+												<th>Razão Social</th>
+												<th>E-mail</th>
+												<th>funções</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>Nome Fantasia</th>
+												<th>Razão Social</th>
+												<th>E-mail</th>
+												<th>funções</th>
+											</tr>
+										</tfoot>
+
+
+										<tbody>
+											<tr th:each="editora : ${listaDeEditoras}">
+												<td th:text="${editora.nomeFastasia}">1</td>
+												<td th:text="${editora.razaoSocial}">Abril</td>
+												<td th:text="${editora.email}">123.123.123-12</td>
+												<td>
+													<div class="row col-12">
+														<div class="col-6">
+															<a th:href="@{/editora/edit/{id} (id = ${editora.id})}"
+																class="btn btn-warning col-9">
+																<i class="fas fa-edit"></i> Editar Editora
+															</a>
+														</div>
+														<div class="col-6">
+															<a th:href="@{/editora/delete/{id} (id = ${editora.id})}"
+																class="btn btn-danger col-9"> <i
+																	class="fas fa-times"></i> Remover Editora
+															</a>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<hr>
+				</div>
+			</div>
+		</main>
+
+		<br> <br>
+
+	</div>
+</body>
+
+</html>
