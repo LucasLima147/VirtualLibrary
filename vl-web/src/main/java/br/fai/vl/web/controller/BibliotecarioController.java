@@ -81,6 +81,10 @@ public class BibliotecarioController {
 			return "conta/register-bibliotecario";
 
 		} else {
+
+			final String completeEmail = bibliotecario.getEmail() + "@vituallibrary.com";
+			bibliotecario.setEmail(completeEmail);
+
 			final int id = service.create(bibliotecario);
 
 			if (id != -1) {
@@ -99,4 +103,10 @@ public class BibliotecarioController {
 		service.delete(id);
 		return "redirect:/usuario/list";
 	}
+
+//	@GetMapping("/report/read-all-users")
+//	public ResponseEntity<byte[]> getAlluserReport() {
+//
+//		return ResponseEntity.badRequest().build();
+//	}
 }

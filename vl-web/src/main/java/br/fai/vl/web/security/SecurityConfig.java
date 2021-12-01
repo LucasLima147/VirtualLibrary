@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/bibliotecario/edit/**").hasAnyRole("BIBLIOTECARIO")
 			.antMatchers("/bibliotecario/update").hasAnyRole("BIBLIOTECARIO")
 			.antMatchers("/bibliotecario/delete/**").hasRole("BIBLIOTECARIO")
+//			.antMatchers("/bibliotecario/report/read-all-users").hasRole("BIBLIOTECARIO")
 			// livro
 			.antMatchers("/livro/list").permitAll()
 			.antMatchers("/livro/list-adm").hasRole("BIBLIOTECARIO")
@@ -81,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
-			.loginPage("/account/entrar").permitAll()
+			.loginPage("/account/entrar")
 			.loginProcessingUrl("/login").permitAll()
 			.defaultSuccessUrl("/")
 		.and()

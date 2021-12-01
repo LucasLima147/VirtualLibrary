@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.stereotype.Repository;
 
@@ -97,7 +98,7 @@ public class LivroDaoImpl implements LivroDao {
 		int id = Integer.valueOf(-1);
 
 		try {
-			final String sql = "INSERT INTO livro(isbn ,titulo, sinopse, numPaginas, ativo, editora_id, genero_id, autor_id) "
+			String sql = "INSERT INTO livro(isbn ,titulo, sinopse, numPaginas, ativo, editora_id, genero_id, autor_id) "
 					+ "VALUES(?, ?, ?, ?, default, ?, ?, ?);";
 
 			connection = ConnectionFactory.getConnection();
@@ -115,6 +116,27 @@ public class LivroDaoImpl implements LivroDao {
 
 			if (resultSet.next()) {
 				id = resultSet.getInt("id");
+				preparedStatement.close();
+
+				for (int i = 0; i < entity.getQtdExemplar(); i++) {
+					final Random random = new Random();
+
+					sql = "INSERT INTO exemplar(edicao, estadoconservacao, livro_id) VALUES(?, ?, ?);";
+					preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					preparedStatement.setInt(1, random.nextInt(10) + 1);
+					preparedStatement.setString(2, "OTIMO");
+					preparedStatement.setInt(3, id);
+
+					preparedStatement.execute();
+					resultSet = preparedStatement.getGeneratedKeys();
+
+					if (!resultSet.next()) {
+						connection.rollback();
+						ConnectionFactory.close(resultSet, preparedStatement, connection);
+						return -1;
+					}
+				}
+
 			}
 
 			connection.commit();

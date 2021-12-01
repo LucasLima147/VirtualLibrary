@@ -6,13 +6,11 @@ import java.util.List;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.fai.vl.model.Bibliotecario;
-import br.fai.vl.model.Pessoa;
 import br.fai.vl.web.model.Account;
 import br.fai.vl.web.service.BibliotecarioService;
 import br.fai.vl.web.service.RestService;
@@ -67,11 +65,10 @@ public class BibliotecarioServiceImpl implements BibliotecarioService {
 		int id = Integer.valueOf(-1);
 
 		try {
-			// faz a chamada da API
-			final RestTemplate restTemplace = new RestTemplate();
-			// receber minha entidade
-			final HttpEntity<Bibliotecario> httpEntity = new HttpEntity<Bibliotecario>(entity);
-			final ResponseEntity<Integer> responseEntity = restTemplace.exchange(endpoint, HttpMethod.POST, httpEntity,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<Bibliotecario> httpEntity = new HttpEntity<Bibliotecario>(entity, headers);
+			final ResponseEntity<Integer> responseEntity = restTemplate.exchange(endpoint, HttpMethod.POST, httpEntity,
 					Integer.class);
 			id = responseEntity.getBody();
 

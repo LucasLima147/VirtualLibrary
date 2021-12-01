@@ -14,10 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import br.fai.vl.model.Bibliotecario;
-import br.fai.vl.model.Leitor;
 import br.fai.vl.model.Pessoa;
-import br.fai.vl.web.model.Account;
 import br.fai.vl.web.security.CustomUserDetails;
 import br.fai.vl.web.service.AccountService;
 
@@ -27,14 +24,14 @@ public class VlAuthenticationProvider implements AuthenticationProvider {
 	private AccountService accountService;
 
 	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+	public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
 		boolean isBibliotecario = false;
 		final String username = authentication.getName();
 		final String password = authentication.getCredentials().toString();
 
 		System.out.println("Username: " + username + " | Password: " + password);
-		
-		if(username.contains("@vituallibrary.com")) {
+
+		if (username.contains("@vituallibrary.com")) {
 			isBibliotecario = true;
 		}
 
@@ -59,7 +56,7 @@ public class VlAuthenticationProvider implements AuthenticationProvider {
 	}
 
 	@Override
-	public boolean supports(Class<?> authentication) {
+	public boolean supports(final Class<?> authentication) {
 		// TODO Auto-generated method stub
 		return authentication.equals(UsernamePasswordAuthenticationToken.class);
 	}

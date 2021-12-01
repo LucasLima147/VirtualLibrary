@@ -11,6 +11,7 @@ public class Livro {
 	private int editoraId;
 	private int generoId;
 	private int autorId;
+	private int qtdExemplar;
 
 	public int getId() {
 		return id;
@@ -82,6 +83,14 @@ public class Livro {
 
 	public void setAutorId(final int autorId) {
 		this.autorId = autorId;
+	}
+
+	public int getQtdExemplar() {
+		return qtdExemplar;
+	}
+
+	public void setQtdExemplar(final int qtdExemplar) {
+		this.qtdExemplar = qtdExemplar;
 	}
 
 }
