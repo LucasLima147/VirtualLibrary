@@ -5,6 +5,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import br.fai.vl.web.security.provider.VlAuthenticationProvider;
@@ -24,9 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
 
-		http.authorizeRequests()
+		http
+		.authorizeRequests()
 			.antMatchers("/resources/**").permitAll()
 			.antMatchers("/").permitAll()
+			.antMatchers("/login").permitAll()
 			// account
 			.antMatchers("/account/forgot-my-passowrd").permitAll()
 			.antMatchers("/account/list").hasRole("BIBLIOTECARIO")
@@ -81,14 +84,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/emprestimo/solicitar-recolhimento/**").hasRole("LEITOR")
 		.anyRequest().authenticated()
 		.and()
+		// página de login
 		.formLogin()
-			.loginPage("/account/entrar")
+			.loginPage("/account/entrar").permitAll()
 			.loginProcessingUrl("/login").permitAll()
 			.defaultSuccessUrl("/")
 		.and()
+			// fazer o logout
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/get-out"))
 			.logoutSuccessUrl("/")
 		.and()
-		.exceptionHandling().accessDeniedPage("/not-found");
+		// acessar uma URL que não tem permissão
+		.exceptionHandling().accessDeniedPage("/not-found")
+		.and()
+		// garantindo que sempre será criada uma sessão ao entrar na aplicação (sem ninguém logado e sem permissão de acesso a nada)
+		.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 	}
 }

@@ -6,7 +6,5 @@ public interface AccountService {
 
 	boolean checkLogin(int pageAccessLevel);
 
-	void disconnect();
-
 	Pessoa validateUsernameAndPassword(String username, String password, boolean isBibliotecario);
 }

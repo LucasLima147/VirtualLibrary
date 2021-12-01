@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.fai.vl.api.service.BibliotecarioService;
-import br.fai.vl.api.service.LeitorService;
-import br.fai.vl.model.Bibliotecario;
-import br.fai.vl.model.Leitor;
+import br.fai.vl.api.service.AccountService;
+import br.fai.vl.model.Pessoa;
 
 @RestController
 @RequestMapping("/api/account")
@@ -19,26 +17,12 @@ import br.fai.vl.model.Leitor;
 public class AccountRestController {
 
 	@Autowired
-	private LeitorService leitorService;
-	@Autowired
-	private BibliotecarioService bibliotecarioService;
+	private AccountService accountService;
 
-	@PostMapping("/login/leitor")
-	public ResponseEntity<Leitor> loginLeitor(@RequestHeader("Authorization") final String encodeData) {
+	@PostMapping("/login")
+	public ResponseEntity<Pessoa> loginLeitor(@RequestHeader("Authorization") final String encodeData) {
 
-		final Leitor usuario = leitorService.validateLogin(encodeData);
-
-		if (usuario == null) {
-			return ResponseEntity.badRequest().build();
-		}
-
-		return ResponseEntity.ok(usuario);
-	}
-
-	@PostMapping("/login/bibliotecario")
-	public ResponseEntity<Bibliotecario> loginBibliotecario(@RequestHeader("Authorization") final String encodeData) {
-
-		final Bibliotecario usuario = bibliotecarioService.validateLogin(encodeData);
+		final Pessoa usuario = accountService.validateLogin(encodeData);
 
 		if (usuario == null) {
 			return ResponseEntity.badRequest().build();

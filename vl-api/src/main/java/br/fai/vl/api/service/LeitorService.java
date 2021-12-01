@@ -18,8 +18,6 @@ public interface LeitorService {
 
 	boolean recoveryPasswor(int idUser, String newPassword);
 
-	Leitor validateLogin(String encodeData);
-
 	int checkEmail(String email);
 
 }
