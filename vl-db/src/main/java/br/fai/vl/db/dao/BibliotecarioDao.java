@@ -10,8 +10,6 @@ public interface BibliotecarioDao {
 
 	Bibliotecario readById(int id);
 
-	List<Bibliotecario> login();
-
 	int create(Bibliotecario entity);
 
 	boolean update(Bibliotecario entity);
@@ -21,4 +19,6 @@ public interface BibliotecarioDao {
 	int checkEmail(String email);
 
 	boolean recoveryPasswor(int idUser, String newPassword);
+
+	Bibliotecario validateUsernameAndPassword(String username, String password);
 }

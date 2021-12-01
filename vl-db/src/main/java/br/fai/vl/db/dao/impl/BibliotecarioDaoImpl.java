@@ -48,6 +48,7 @@ public class BibliotecarioDaoImpl implements BibliotecarioDao {
 				bibliotecario.setEmail(resultSet.getString("email"));
 				bibliotecario.setSenha(resultSet.getString("senha"));
 				bibliotecario.setPessoaId(resultSet.getInt("pessoa_id"));
+				bibliotecario.setTipo("BIBLIOTECARIO");
 				bibliotecarios.add(bibliotecario);
 			}
 
@@ -92,6 +93,7 @@ public class BibliotecarioDaoImpl implements BibliotecarioDao {
 				bibliotecario.setEmail(resultSet.getString("email"));
 				bibliotecario.setSenha(resultSet.getString("senha"));
 				bibliotecario.setPessoaId(resultSet.getInt("pessoa_id"));
+				bibliotecario.setTipo("BIBLIOTECARIO");
 			}
 
 		} catch (final Exception e) {
@@ -262,36 +264,6 @@ public class BibliotecarioDaoImpl implements BibliotecarioDao {
 		}
 	}
 
-	public List<Bibliotecario> login() {
-		final List<Bibliotecario> bibliotecarios = new ArrayList<Bibliotecario>();
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-			connection = ConnectionFactory.getConnection();
-			final String sql = "SELECT * FROM bibliotecario;";
-
-			preparedStatement = connection.prepareStatement(sql);
-			resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next()) {
-				final Bibliotecario bibliotecario = new Bibliotecario();
-				bibliotecario.setId(resultSet.getInt("id"));
-				bibliotecario.setEmail(resultSet.getString("email"));
-				bibliotecario.setSenha(resultSet.getString("senha"));
-				bibliotecarios.add(bibliotecario);
-			}
-
-		} catch (final Exception e) {
-			System.out.println("Não foi possível resgatar os Leitores ou houve um erro interno no sistema");
-		} finally {
-			ConnectionFactory.close(resultSet, preparedStatement, connection);
-		}
-
-		return bibliotecarios;
-	}
-
 	public int checkEmail(final String email) {
 
 		Connection connection = null;
@@ -358,5 +330,49 @@ public class BibliotecarioDaoImpl implements BibliotecarioDao {
 		} finally {
 			ConnectionFactory.close(preparedStatement, connection);
 		}
+	}
+
+	public Bibliotecario validateUsernameAndPassword(final String username, final String password) {
+		Bibliotecario bibliotecario = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = ConnectionFactory.getConnection();
+			final String sql = "SELECT * FROM bibliotecario B left JOIN pessoa P on P.id = B.pessoa_id WHERE email = ? AND senha = ?;";
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				bibliotecario = new Bibliotecario();
+				bibliotecario.setId(resultSet.getInt("id"));
+				bibliotecario.setCpf(resultSet.getString("cpf"));
+				bibliotecario.setNome(resultSet.getString("nome"));
+				bibliotecario.setRua(resultSet.getString("rua"));
+				bibliotecario.setNumero(resultSet.getInt("numero"));
+				bibliotecario.setBairro(resultSet.getString("bairro"));
+				bibliotecario.setCidade(resultSet.getString("cidade"));
+				bibliotecario.setEstado(resultSet.getString("estado"));
+				bibliotecario.setTelefone(resultSet.getString("telefone"));
+				bibliotecario.setRegistro(resultSet.getInt("registro"));
+				bibliotecario.setEmail(resultSet.getString("email"));
+				bibliotecario.setSenha(resultSet.getString("senha"));
+				
+				bibliotecario.setTipo("BIBLIOTECARIO");
+
+			}
+
+		} catch (final Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionFactory.close(resultSet, preparedStatement, connection);
+		}
+
+		return bibliotecario;
 	}
 }

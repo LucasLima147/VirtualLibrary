@@ -10,8 +10,6 @@ public interface LeitorDao {
 
 	Leitor readById(int id);
 
-	List<Leitor> login();
-
 	int create(Leitor entity);
 
 	boolean update(Leitor entity);
@@ -21,4 +19,6 @@ public interface LeitorDao {
 	int checkEmail(String email);
 
 	boolean recoveryPasswor(int idUser, String newPassword);
+	
+	Leitor validateUsernameAndPassword(final String username, final String password);
 }

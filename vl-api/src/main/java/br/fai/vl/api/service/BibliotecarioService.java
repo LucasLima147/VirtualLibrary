@@ -10,15 +10,15 @@ public interface BibliotecarioService {
 
 	Bibliotecario readById(int id);
 
-	int login(String email, String password);
-
 	int create(Bibliotecario entity);
 
 	boolean update(Bibliotecario entity);
 
 	boolean delete(int id);
 
-	int checkEmail(String email);
-
 	boolean recoveryPasswor(int idUser, String newPassword);
+
+	Bibliotecario validateLogin(String encodeData);
+
+	int checkEmail(String email);
 }

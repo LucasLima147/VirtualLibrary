@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html layout:decorate="~{login-layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Not-found</title>
+</head>
+
+<body>
+	<div layout:fragment="body">
+	
+		<br>
+		<br>
+		<main>
+			<div class="container login">
+				<div class="row justify-content-center">
+					<div class="col-lg-8">
+						<div class="card border-0 rounded-lg mt-5">
+							<div class="card-header">
+								<img class="logo" src="../resources/assets/img/logo/VL fundo roxo2.png" alt="">
+							</div>
+
+							<div class="card-body">
+								<div class="text-center">
+									<h2>PÁGINA NÃO ENCONTRADA!</h2>
+									<br>
+									<p>Descupe Sr(a), mas a página que está tentando acessar não está disponível
+										ou você não tem permissão para acessar ela</p>
+									<p> tente novamente após fazer o login clicando <a th:href="@{/account/entrar}"> aqui!</a></p>
+								</div>
+							</div>
+							<div class="card-footer text-center">
+								<div class="small">
+									<a th:href="@{/leitor/register}">Precisa de uma conta? Cadastre-se!</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<br>
+		<br>
+	</div>
+
+</body>
+
+</html>

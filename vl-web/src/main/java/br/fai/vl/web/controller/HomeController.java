@@ -16,4 +16,8 @@ public class HomeController {
 		return "general/criadores";
 	}
 
+	@GetMapping("/not-found")
+	public String getNotFound() {
+		return "/exception/not-found";
+	}
 }

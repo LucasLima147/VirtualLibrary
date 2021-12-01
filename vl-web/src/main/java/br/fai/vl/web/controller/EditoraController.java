@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.fai.vl.model.Editora;
-import br.fai.vl.web.model.Account;
 import br.fai.vl.web.service.EditoraService;
 
 @Controller
@@ -23,38 +22,18 @@ public class EditoraController {
 
 	@GetMapping("/list")
 	private String getEditoraList(final Model model) {
+		final List<Editora> editoras = service.readAll();
+		model.addAttribute("listaDeEditoras", editoras);
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			System.out.println(Account.getPermissionLevel());
-			if (Account.getPermissionLevel() >= 2) {
-				final List<Editora> editoras = service.readAll();
-				model.addAttribute("listaDeEditoras", editoras);
-
-				return "editora/list";
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
-
+		return "editora/list";
 	}
 
 	@GetMapping("/edit/{id}")
 	private String getEditoraEdit(@PathVariable final int id, final Model model) {
+		final Editora editora = service.readById(id);
+		model.addAttribute("editaEditora", editora);
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			if (Account.getPermissionLevel() >= 2) {
-				final Editora editora = service.readById(id);
-				model.addAttribute("editaEditora", editora);
-
-				return "editora/edit";
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
+		return "editora/edit";
 	}
 
 	@PostMapping("/update")
@@ -66,17 +45,7 @@ public class EditoraController {
 
 	@GetMapping("/register-editora")
 	private String getRegisterEditora(final Editora editora) {
-
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			if (Account.getPermissionLevel() >= 2) {
-
-				return "editora/create";
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
+		return "editora/create";
 
 	}
 
@@ -94,18 +63,7 @@ public class EditoraController {
 
 	@GetMapping("/delete/{id}")
 	private String deleteEditora(@PathVariable final int id, final Model model) {
-
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			if (Account.getPermissionLevel() >= 2) {
-
-				service.delete(id);
-				return getEditoraList(model);
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
-
+		service.delete(id);
+		return getEditoraList(model);
 	}
 }

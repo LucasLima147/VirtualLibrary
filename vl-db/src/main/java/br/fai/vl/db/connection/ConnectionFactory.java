@@ -15,8 +15,8 @@ import java.sql.SQLException;
  */
 public class ConnectionFactory {
 
-//	private static final String url = "jdbc:postgresql://localhost:5433/virtualLibrary";
-	private static final String url = "jdbc:postgresql://localhost:5432/virtualLibrary";
+	private static final String url = "jdbc:postgresql://localhost:5433/virtualLibrary";
+//	private static final String url = "jdbc:postgresql://localhost:5432/virtualLibrary";
 	private static final String userName = "postgres";
 	private static final String password = "postgres";
 

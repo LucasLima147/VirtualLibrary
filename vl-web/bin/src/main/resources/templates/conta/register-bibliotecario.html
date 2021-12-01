@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html layout:decorate="~{login-layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Criar Usuário</title>
+	<script>
+		function validaSenhas() {
+			var pass = document.getElementById("inputPassword");
+			var confirPass = document.getElementById("inputConfirmPassword");
+			if (pass.value != confirPass.value) {
+				document.getElementById("cadastro").setAttribute("type", "reset")
+				alert("Senhas diferentes")
+			} else {
+				document.getElementById("cadastro").setAttribute("type", "submit")
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div layout:fragment="body">
+
+		<br> <br> <br>
+
+		<main>
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-10">
+						<div class="card border-0 rounded-lg mt-5">
+							<div class="card-header">
+								<img class="logo" src="../resources/assets/img/logo/VL fundo roxo2.png" alt="">
+							</div>
+							<div class="card-body">
+								<div class="alert alert-danger" th:if="${correto}">
+									<span class="font-weight-bold align-middle">Por favor, preencha os campos
+										corretamente</span>
+								</div>
+								<form th:action="@{/bibliotecario/create}" method="post" th:object="${bibliotecario}">
+									<div class="form-row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="small mb-1" for="nome">Nome Completo</label><input
+													class="form-control py-4" id="nome" type="text"
+													placeholder="Insira seu nome" th:field="${bibliotecario.nome}"
+													required="Informe seu nome" />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="small mb-1" for="matricula">Registro</label><input
+													class="form-control py-4" id="matricula" type="number"
+													placeholder="Insira o seu sobrenome"
+													th:field="${bibliotecario.registro}" required="Informe seu registro" />
+											</div>
+										</div>
+									</div>
+
+
+									<div class="form-row">
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="small mb-1" for="cpf">CPF</label> <input
+													class="form-control py-4 cpf-mask" id="cpf" type="text"
+													placeholder="Ex: 000.000.000-00" th:field="${bibliotecario.cpf}"
+													required="informe seu CPF no formato indicado" />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="small mb-1" for="email">Email</label><input
+													class="form-control py-4" id="email" type="text"
+													placeholder="Ex: teste@teste.com" th:field="${bibliotecario.email}"
+													required="Informe seu email" />
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="small mb-1" for="inputTelefone">Telefone</label><input
+													class="form-control py-4" id="inputTelefone" type="text"
+													placeholder="Ex: (12) 91234-1234"
+													th:field="${bibliotecario.telefone}" required="informe seu telefone" />
+											</div>
+
+										</div>
+									</div>
+
+
+									<div class="form-row">
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="small mb-1" for="exampleFormControlSelect1">Tipo
+													de Conta</label> <input class="form-control py-4" id="inputTelefone"
+													type="text" placeholder="Bibliotecario" readonly />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="small mb-1" for="inputEstado">Estado</label> <select
+													class="form-control small mb-1" id="estado" name="estado"
+													th:field="${bibliotecario.estado}">
+													<option selected value="-1">Selecione...</option>
+													<option th:value="AC">Acre</option>
+													<option th:value="AL">Alagoas</option>
+													<option th:value="AP">Amapá</option>
+													<option th:value="AM">Amazonas</option>
+													<option th:value="BA">Bahia</option>
+													<option th:value="CE">Ceará</option>
+													<option th:value="DF">Distrito Federal</option>
+													<option th:value="ES">Espírito Santo</option>
+													<option th:value="GO">Goiás</option>
+													<option th:value="MA">Maranhão</option>
+													<option th:value="MT">Mato Grosso</option>
+													<option th:value="MS">Mato Grosso do Sul</option>
+													<option th:value="MG">Minas Gerais</option>
+													<option th:value="PA">Pará</option>
+													<option th:value="PB">Paraíba</option>
+													<option th:value="PR">Paraná</option>
+													<option th:value="PE">Pernambuco</option>
+													<option th:value="PI">Piauí</option>
+													<option th:value="RJ">Rio de Janeiro</option>
+													<option th:value="RN">Rio Grande do Norte</option>
+													<option th:value="RS">Rio Grande do Sul</option>
+													<option th:value="RO">Rondônia</option>
+													<option th:value="RR">Roraima</option>
+													<option th:value="SC">Santa Catarina</option>
+													<option th:value="SP">São Paulo</option>
+													<option th:value="SE">Sergipe</option>
+													<option th:value="TO">Tocantins</option>
+													<option th:value="EX">Estrangeiro</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="col-md-5">
+											<div class="form-group">
+												<label class="small mb-1" for="inputCidade">Cidade</label><input
+													class="form-control py-4" id="inputCidade" type="text"
+													placeholder="Insira a cidade" th:field="${bibliotecario.cidade}"
+													required="informe sua cidade" />
+											</div>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="col-md-5">
+											<div class="form-group">
+												<label class="small mb-1" for="inputRua">Rua</label><input
+													class="form-control py-4" id="inputRua" type="text"
+													placeholder="Insira seu nome" th:field="${bibliotecario.rua}"
+													required="" />
+											</div>
+										</div>
+										<div class="col-md-5">
+											<div class="form-group">
+												<label class="small mb-1" for="inputBairro">Bairro</label><input
+													class="form-control py-4" id="inputBairro" type="text"
+													placeholder="Insira o bairro" th:field="${bibliotecario.bairro}"
+													required />
+											</div>
+										</div>
+
+										<div class="col-md-2">
+											<div class="form-group">
+												<label class="small mb-1" for="inputNúmero">Número</label><input
+													class="form-control py-4" id="inputNúmero" type="number"
+													placeholder="nº" th:field="${bibliotecario.numero}" required />
+											</div>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="small mb-1" for="inputPassword">Senha</label><input
+													class="form-control py-4" id="inputPassword" type="password"
+													placeholder="Insira a senha" th:field="${bibliotecario.senha}"
+													required />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="small mb-1" for="inputConfirmPassword">Confirme
+													a senha</label><input class="form-control py-4"
+													id="inputConfirmPassword" type="password"
+													placeholder="Confirme a senha" required />
+											</div>
+										</div>
+									</div>
+									<div class="form-group mt-4 mb-0">
+										<button class="btn btn-primary btn-block" id="cadastro" onclick="validaSenhas()"
+											type="submit">Criar
+											a conta</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<br> <br> <br> <br> <br>
+
+
+
+	</div>
+</body>
+<scrpit> JQuery(function($){
+	$("#inputCpf").mask("999.999.999-99"); }); </scrpit>
+
+</html>

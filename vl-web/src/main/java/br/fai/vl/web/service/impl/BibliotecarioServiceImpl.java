@@ -4,14 +4,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.fai.vl.model.Bibliotecario;
+import br.fai.vl.model.Pessoa;
 import br.fai.vl.web.model.Account;
 import br.fai.vl.web.service.BibliotecarioService;
+import br.fai.vl.web.service.RestService;
 
 @Service
 public class BibliotecarioServiceImpl implements BibliotecarioService {
@@ -24,7 +28,8 @@ public class BibliotecarioServiceImpl implements BibliotecarioService {
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<Bibliotecario[]> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET,
 					httpEntity, Bibliotecario[].class);
 
@@ -43,7 +48,8 @@ public class BibliotecarioServiceImpl implements BibliotecarioService {
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<Bibliotecario> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET,
 					httpEntity, Bibliotecario.class);
 
@@ -85,7 +91,9 @@ public class BibliotecarioServiceImpl implements BibliotecarioService {
 			// faz a chamada da API
 			final RestTemplate restTemplace = new RestTemplate();
 			// receber minha entidade
-			final HttpEntity<Bibliotecario> httpEntity = new HttpEntity<Bibliotecario>(entity);
+
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<Bibliotecario> httpEntity = new HttpEntity<Bibliotecario>(entity, headers);
 			final ResponseEntity<Boolean> responseEntity = restTemplace.exchange(endpoint, HttpMethod.PUT, httpEntity,
 					Boolean.class);
 			response = responseEntity.getBody();
@@ -104,7 +112,8 @@ public class BibliotecarioServiceImpl implements BibliotecarioService {
 
 		try {
 			final RestTemplate restTemplace = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<Boolean> requestResponse = restTemplace.exchange(endpoint, HttpMethod.DELETE,
 					httpEntity, Boolean.class);
 
@@ -115,32 +124,6 @@ public class BibliotecarioServiceImpl implements BibliotecarioService {
 		}
 
 		return response;
-	}
-
-	@Override
-	public boolean login(final Bibliotecario entity) {
-		final String endpoint = "http://localhost:8085//api/v1/bibliotecario/login";
-		int id = Integer.valueOf(-1);
-
-		try {
-			final RestTemplate restTemplace = new RestTemplate();
-			final HttpEntity<Bibliotecario> httpEntity = new HttpEntity<Bibliotecario>(entity);
-			final ResponseEntity<Integer> responseEntity = restTemplace.exchange(endpoint, HttpMethod.POST, httpEntity,
-					Integer.class);
-			id = responseEntity.getBody();
-
-		} catch (final Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		if (id != -1) {
-			Account.setIdUser(id);
-			Account.setLogin(true);
-			Account.setPermissionLevel(2);
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override

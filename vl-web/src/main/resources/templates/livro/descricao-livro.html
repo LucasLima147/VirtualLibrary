@@ -55,7 +55,7 @@
 
                     </div>
 
-                    <a th:href="@{/livro/finalizar-emprestimo/} + ${idLivro}" class="btn btn-primary btn-descricao-livro btn-lg">Adicionar ao Carrinho</a>
+                    <a th:href="@{/livro/finalizar-emprestimo/} + ${idLivro}" class="btn btn-primary btn-descricao-livro btn-lg" sec:authorize="hasRole('LEITOR')">Adicionar ao Carrinho</a>
                     <br>
                     <br>
 

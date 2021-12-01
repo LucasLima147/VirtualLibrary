@@ -15,8 +15,9 @@ import br.fai.vl.dto.EmprestimoDTO;
 import br.fai.vl.model.Bibliotecario;
 import br.fai.vl.model.Emprestimo;
 import br.fai.vl.model.Leitor;
+import br.fai.vl.model.Pessoa;
 import br.fai.vl.web.model.Account;
-import br.fai.vl.web.service.AccountService;
+import br.fai.vl.web.security.provider.VlAuthenticationProvider;
 import br.fai.vl.web.service.BibliotecarioService;
 import br.fai.vl.web.service.EmprestimoService;
 import br.fai.vl.web.service.EntregaService;
@@ -27,11 +28,7 @@ import br.fai.vl.web.service.RecolhimentoService;
 @RequestMapping("/account")
 public class AccountController {
 
-	private boolean loginInvalido = false;
 	private boolean emailInvalido = false;
-
-	@Autowired
-	private AccountService service;
 
 	@Autowired
 	private LeitorService leitorService;
@@ -48,71 +45,66 @@ public class AccountController {
 	@Autowired
 	private RecolhimentoService recolhimentoService;
 
+	@Autowired
+	private VlAuthenticationProvider authenticationProvider;
+
 	@GetMapping("/editar-perfil")
 	public String getEditar() {
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
+		final Pessoa user = authenticationProvider.getAuthenticatedUser();
+
+		if (user instanceof Leitor) {
+			return "redirect:/leitor/edit/" + user.getId();
+
+		} else if (user instanceof Bibliotecario) {
+			return "redirect:/bibliotecario/edit/" + user.getId();
 		} else {
-			if (Account.getPermissionLevel() == 1) {
-				return "redirect:/leitor/edit/" + Account.getIdUser();
-			} else if (Account.getPermissionLevel() == 2) {
-				return "redirect:/bibliotecario/edit/" + Account.getIdUser();
-			} else {
-				return "redirect:/leitor/detail/" + Account.getIdUser();
-			}
+			return "redirect:/account/entrar";
 		}
 	}
 
 	@GetMapping("/perfil-usuario")
 	public String getPerfil() {
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
+		final Pessoa user = authenticationProvider.getAuthenticatedUser();
+
+		if (user instanceof Leitor) {
+			return "redirect:/leitor/detail/" + user.getId();
+
+		} else if (user instanceof Bibliotecario) {
+			return "redirect:/bibliotecario/detail/" + user.getId();
 		} else {
-			if (Account.getPermissionLevel() == 1) {
-				return "redirect:/leitor/detail/" + Account.getIdUser();
-			} else if (Account.getPermissionLevel() == 2) {
-				return "redirect:/bibliotecario/detail/" + Account.getIdUser();
-			} else {
-				return "redirect:/leitor/detail/" + Account.getIdUser();
-			}
+			return "redirect:/account/entrar";
 		}
+
 	}
 
 	@GetMapping("/notificacao")
 	public String getNotificacao(final Model model) {
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
+
+		final Emprestimo lastEmprestimo = emprestimoService
+				.lastLoanRecord(authenticationProvider.getAuthenticatedUser().getId());
+		final List<Emprestimo> emprestimoList = emprestimoService
+				.myPreviousLoans(authenticationProvider.getAuthenticatedUser().getId());
+		if (lastEmprestimo != null && !(emprestimoList.isEmpty())) {
+			model.addAttribute("lastLoan", lastEmprestimo);
+
+			model.addAttribute("listaDeEmprestimo", emprestimoList);
+
+			return "usuario/notificacao";
 		} else {
-			if (Account.getPermissionLevel() == 1) {
 
-				final Emprestimo lastEmprestimo = emprestimoService.lastLoanRecord(Account.getIdUser());
-				final List<Emprestimo> emprestimoList = emprestimoService.myPreviousLoans(Account.getIdUser());
-				if (lastEmprestimo != null && !(emprestimoList.isEmpty())) {
-					model.addAttribute("lastLoan", lastEmprestimo);
+			final Emprestimo emprestimoProvisorio = new Emprestimo();
+			emprestimoProvisorio.setCodigo(0);
+			emprestimoProvisorio.setId(-1);
+			model.addAttribute("lastLoan", emprestimoProvisorio);
 
-					model.addAttribute("listaDeEmprestimo", emprestimoList);
+			final List<Emprestimo> emprestimoListProvisorio = new ArrayList<Emprestimo>();
 
-					return "usuario/notificacao";
-				} else {
+			emprestimoListProvisorio.add(emprestimoProvisorio);
+			model.addAttribute("listaDeEmprestimo", emprestimoListProvisorio);
 
-					final Emprestimo emprestimoProvisorio = new Emprestimo();
-					emprestimoProvisorio.setCodigo(0);
-					emprestimoProvisorio.setId(-1);
-					model.addAttribute("lastLoan", emprestimoProvisorio);
-
-					final List<Emprestimo> emprestimoListProvisorio = new ArrayList<Emprestimo>();
-
-					emprestimoListProvisorio.add(emprestimoProvisorio);
-					model.addAttribute("listaDeEmprestimo", emprestimoListProvisorio);
-
-					return "usuario/notificacao";
-				}
-
-			} else {
-				return "redirect:/account/entrar";
-			}
+			return "usuario/notificacao";
 		}
 	}
 
@@ -124,45 +116,27 @@ public class AccountController {
 	@GetMapping("/my-loans")
 	public String getOpenUserLoan(final Model model) {
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
+		final List<EmprestimoDTO> openUserloan = emprestimoService
+				.checkOpenUserLoans(authenticationProvider.getAuthenticatedUser().getId());
+
+		if (!openUserloan.isEmpty()) {
+			model.addAttribute("openLoans", openUserloan);
+			model.addAttribute("idEmprestimo", openUserloan.get(0).getIdEmprestimo());
 		} else {
-			if (Account.getPermissionLevel() == 1) {
-
-				final List<EmprestimoDTO> openUserloan = emprestimoService.checkOpenUserLoans(Account.getIdUser());
-
-				if (!openUserloan.isEmpty()) {
-					model.addAttribute("openLoans", openUserloan);
-					model.addAttribute("idEmprestimo", openUserloan.get(0).getIdEmprestimo());
-				} else {
-					model.addAttribute("openLoans", null);
-					model.addAttribute("idEmprestimo", -1);
-				}
-
-				return "usuario/emprestimos";
-
-			} else {
-				return "redirect:/account/entrar";
-			}
+			model.addAttribute("openLoans", null);
+			model.addAttribute("idEmprestimo", -1);
 		}
+
+		return "usuario/emprestimos";
 	}
 
 	@GetMapping("/terminate-loan/{id}")
 	public String terminateLoan(@PathVariable final int id) {
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
+		if (emprestimoService.terminateLoan(id)) {
+			return "redirect:/account/notificacao";
 		} else {
-			if (Account.getPermissionLevel() == 1) {
-				if (emprestimoService.terminateLoan(id)) {
-					return "redirect:/account/notificacao";
-				} else {
-					return "redirect:/account/entrar";
-				}
-
-			} else {
-				return "redirect:/account/entrar";
-			}
+			return "redirect:/account/entrar";
 		}
 	}
 
@@ -179,91 +153,32 @@ public class AccountController {
 
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable final int id) {
-
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			if (Account.getPermissionLevel() == 1) {
-				emprestimoService.delete(id);
-
-				return "redirect:/";
-
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
+		emprestimoService.delete(id);
+		return "redirect:/account/my-loans";
 	}
 
 // ======================= tudo sobre o Login =============================
 
-	@GetMapping("/get-out")
-	public String getOut() {
-		service.disconnect();
-		return "redirect:/";
-	}
-
 	@GetMapping("/list")
 	public String getList(final Model model) {
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			if (Account.getPermissionLevel() >= 2) {
+		final List<Leitor> leitores = leitorService.readAll();
+		model.addAttribute("listaDeLeitores", leitores);
 
-				final List<Leitor> leitores = leitorService.readAll();
-				model.addAttribute("listaDeLeitores", leitores);
+		final List<Bibliotecario> bibliotecarios = bibliotecarioService.readAll();
+		model.addAttribute("listaDeBibliotecarios", bibliotecarios);
 
-				final List<Bibliotecario> bibliotecarios = bibliotecarioService.readAll();
-				model.addAttribute("listaDeBibliotecarios", bibliotecarios);
-
-				return "usuario/list";
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
+		return "usuario/list";
 	}
 
 	@GetMapping("/entrar")
-	public String getEntrar(final Account account) {
+	public String getEntrar() {
 
 		return "conta/login";
 	}
 
-	@PostMapping("/login")
-	private String login(final Account account, final Model model) {
-
-		if (account.getLevelRequest() == 1) {
-			final Leitor leitor = new Leitor();
-			leitor.setEmail(account.getUserEmail());
-			leitor.setSenha(account.getUserPassword());
-
-			if (leitorService.login(leitor)) {
-
-				loginInvalido = false;
-				return "redirect:/";
-			} else {
-				loginInvalido = true;
-				model.addAttribute("login", loginInvalido);
-				return "conta/login";
-			}
-
-		} else if (account.getLevelRequest() == 2) {
-			final Bibliotecario bibliotecario = new Bibliotecario();
-			bibliotecario.setEmail(account.getUserEmail());
-			bibliotecario.setSenha(account.getUserPassword());
-			if (bibliotecarioService.login(bibliotecario)) {
-
-				loginInvalido = false;
-				return "redirect:/";
-			} else {
-				loginInvalido = true;
-				model.addAttribute("login", loginInvalido);
-				return "conta/login";
-			}
-		} else {
-			return "conta/login";
-		}
-	}
+//	@PostMapping("/login")
+//	public String
 
 	@GetMapping("/forgot-my-passowrd")
 	public String getForgotMyPassoword(final Account account) {
@@ -272,6 +187,8 @@ public class AccountController {
 
 	@PostMapping("/check-email")
 	private String checkEmail(final Account account, final Model model) {
+
+		System.out.println("Bateu aqui");
 
 		if (account.getLevelRequest() == 1) {
 			final Leitor leitor = new Leitor();
@@ -340,33 +257,24 @@ public class AccountController {
 	@GetMapping("/my-previous-loans/{idEmprestimo}")
 	public String getMyPreviousLoans(@PathVariable final int idEmprestimo, final Model model) {
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
+		model.addAttribute("situacaoEntrega", entregaService.checkDeliveryRequest(idEmprestimo,
+				authenticationProvider.getAuthenticatedUser().getId()));
+
+		model.addAttribute("situacaoRecolhimento", recolhimentoService.requestCollection(idEmprestimo,
+				authenticationProvider.getAuthenticatedUser().getId()));
+
+		final List<EmprestimoDTO> openUserloan = emprestimoService.checkLoan(idEmprestimo,
+				authenticationProvider.getAuthenticatedUser().getId());
+
+		if (!openUserloan.isEmpty()) {
+			model.addAttribute("loans", openUserloan);
+			model.addAttribute("idEmprestimo", openUserloan.get(0).getIdEmprestimo());
 		} else {
-			if (Account.getPermissionLevel() == 1) {
-
-				model.addAttribute("situacaoEntrega",
-						entregaService.checkDeliveryRequest(idEmprestimo, Account.getIdUser()));
-
-				model.addAttribute("situacaoRecolhimento",
-						recolhimentoService.requestCollection(idEmprestimo, Account.getIdUser()));
-
-				final List<EmprestimoDTO> openUserloan = emprestimoService.checkLoan(idEmprestimo, Account.getIdUser());
-
-				if (!openUserloan.isEmpty()) {
-					model.addAttribute("loans", openUserloan);
-					model.addAttribute("idEmprestimo", openUserloan.get(0).getIdEmprestimo());
-				} else {
-					model.addAttribute("loans", null);
-					model.addAttribute("idEmprestimo", -1);
-				}
-
-				return "/usuario/fazer-solicitacoes";
-
-			} else {
-				return "redirect:/account/entrar";
-			}
+			model.addAttribute("loans", null);
+			model.addAttribute("idEmprestimo", -1);
 		}
+
+		return "/usuario/fazer-solicitacoes";
 
 	}
 }

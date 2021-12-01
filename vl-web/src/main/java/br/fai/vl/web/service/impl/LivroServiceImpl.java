@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import br.fai.vl.model.Livro;
 import br.fai.vl.web.service.LivroService;
+import br.fai.vl.web.service.RestService;
 
 @Service
 public class LivroServiceImpl implements LivroService {
@@ -23,7 +25,8 @@ public class LivroServiceImpl implements LivroService {
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<Livro[]> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					Livro[].class);
 
@@ -42,7 +45,8 @@ public class LivroServiceImpl implements LivroService {
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<Livro> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					Livro.class);
 
@@ -60,11 +64,10 @@ public class LivroServiceImpl implements LivroService {
 		int id = Integer.valueOf(-1);
 
 		try {
-			// faz a chamada da API
-			final RestTemplate restTemplace = new RestTemplate();
-			// receber minha entidade
-			final HttpEntity<Livro> httpEntity = new HttpEntity<Livro>(entity);
-			final ResponseEntity<Integer> responseEntity = restTemplace.exchange(endpoint, HttpMethod.POST, httpEntity,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<Livro> httpEntity = new HttpEntity<Livro>(entity, headers);
+			final ResponseEntity<Integer> responseEntity = restTemplate.exchange(endpoint, HttpMethod.POST, httpEntity,
 					Integer.class);
 			id = responseEntity.getBody();
 
@@ -82,10 +85,10 @@ public class LivroServiceImpl implements LivroService {
 
 		try {
 
-			final RestTemplate restTemplace = new RestTemplate();
-
-			final HttpEntity<Livro> httpEntity = new HttpEntity<Livro>(entity);
-			final ResponseEntity<Boolean> responseEntity = restTemplace.exchange(endpoint, HttpMethod.PUT, httpEntity,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<Livro> httpEntity = new HttpEntity<Livro>(entity, headers);
+			final ResponseEntity<Boolean> responseEntity = restTemplate.exchange(endpoint, HttpMethod.PUT, httpEntity,
 					Boolean.class);
 			response = responseEntity.getBody();
 
@@ -102,9 +105,10 @@ public class LivroServiceImpl implements LivroService {
 		boolean response = false;
 
 		try {
-			final RestTemplate restTemplace = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
-			final ResponseEntity<Boolean> requestResponse = restTemplace.exchange(endpoint, HttpMethod.DELETE,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
+			final ResponseEntity<Boolean> requestResponse = restTemplate.exchange(endpoint, HttpMethod.DELETE,
 					httpEntity, Boolean.class);
 
 			response = requestResponse.getBody();

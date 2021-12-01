@@ -4,14 +4,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.fai.vl.model.Leitor;
+import br.fai.vl.model.Pessoa;
 import br.fai.vl.web.model.Account;
 import br.fai.vl.web.service.LeitorService;
+import br.fai.vl.web.service.RestService;
 
 @Service
 public class LeitorServiceImpl implements LeitorService {
@@ -24,7 +28,8 @@ public class LeitorServiceImpl implements LeitorService {
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<Leitor[]> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					Leitor[].class);
 
@@ -43,7 +48,8 @@ public class LeitorServiceImpl implements LeitorService {
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<Leitor> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					Leitor.class);
 
@@ -91,7 +97,8 @@ public class LeitorServiceImpl implements LeitorService {
 			// faz a chamada da API
 			final RestTemplate restTemplace = new RestTemplate();
 			// receber minha entidade
-			final HttpEntity<Leitor> httpEntity = new HttpEntity<Leitor>(entity);
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<Leitor> httpEntity = new HttpEntity<Leitor>(entity, headers);
 			final ResponseEntity<Boolean> responseEntity = restTemplace.exchange(endpoint, HttpMethod.PUT, httpEntity,
 					Boolean.class);
 			response = responseEntity.getBody();
@@ -110,7 +117,8 @@ public class LeitorServiceImpl implements LeitorService {
 
 		try {
 			final RestTemplate restTemplace = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<Boolean> requestResponse = restTemplace.exchange(endpoint, HttpMethod.DELETE,
 					httpEntity, Boolean.class);
 
@@ -121,32 +129,6 @@ public class LeitorServiceImpl implements LeitorService {
 		}
 
 		return response;
-	}
-
-	@Override
-	public boolean login(final Leitor entity) {
-		final String endpoint = "http://localhost:8085/api/v1/leitor/login";
-		int id = Integer.valueOf(-1);
-
-		try {
-			final RestTemplate restTemplace = new RestTemplate();
-			final HttpEntity<Leitor> httpEntity = new HttpEntity<Leitor>(entity);
-			final ResponseEntity<Integer> responseEntity = restTemplace.exchange(endpoint, HttpMethod.POST, httpEntity,
-					Integer.class);
-			id = responseEntity.getBody();
-
-		} catch (final Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		if (id != -1) {
-			Account.setIdUser(id);
-			Account.setLogin(true);
-			Account.setPermissionLevel(1);
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override

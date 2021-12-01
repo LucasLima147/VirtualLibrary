@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import br.fai.vl.model.Autor;
 import br.fai.vl.web.service.AutorService;
+import br.fai.vl.web.service.RestService;
 
 @Service
 public class AutorServiceImpl implements AutorService {
@@ -23,7 +25,8 @@ public class AutorServiceImpl implements AutorService {
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<Autor[]> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					Autor[].class);
 

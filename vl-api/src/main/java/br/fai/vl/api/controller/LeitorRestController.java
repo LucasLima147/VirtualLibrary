@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.fai.vl.api.service.LeitorService;
+import br.fai.vl.model.Bibliotecario;
 import br.fai.vl.model.Leitor;
 
 @RestController
@@ -52,15 +53,9 @@ public class LeitorRestController {
 
 		return ResponseEntity.ok(service.delete(id));
 	}
-
-	@PostMapping("/login")
-	public ResponseEntity<Integer> login(@RequestBody final Leitor entity) {
-
-		return ResponseEntity.ok(service.login(entity.getEmail(), entity.getSenha()));
-	}
-
+	
 	@PostMapping("/check-mail")
-	public ResponseEntity<Integer> checkEmail(@RequestBody final Leitor entity) {
+	public ResponseEntity<Integer> checkMail(@RequestBody final Bibliotecario entity) {
 
 		return ResponseEntity.ok(service.checkEmail(entity.getEmail()));
 	}

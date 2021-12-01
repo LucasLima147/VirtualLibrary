@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import br.fai.vl.db.connection.ConnectionFactory;
 import br.fai.vl.db.dao.LeitorDao;
+import br.fai.vl.model.Bibliotecario;
 import br.fai.vl.model.Leitor;
 
 @Repository
@@ -48,6 +49,7 @@ public class LeitorDaoImpl implements LeitorDao {
 				leitor.setEmail(resultSet.getString("email"));
 				leitor.setSenha(resultSet.getString("senha"));
 				leitor.setPessoaId(resultSet.getInt("pessoa_id"));
+				leitor.setTipo("LEITOR");
 				leitors.add(leitor);
 			}
 
@@ -79,7 +81,6 @@ public class LeitorDaoImpl implements LeitorDao {
 			// pegando os resultados obtidos
 			while (resultSet.next()) {
 				leitor = new Leitor();
-				leitor.setId(resultSet.getInt("id"));
 				leitor.setCpf(resultSet.getString("cpf"));
 				leitor.setNome(resultSet.getString("nome"));
 				leitor.setRua(resultSet.getString("rua"));
@@ -93,6 +94,7 @@ public class LeitorDaoImpl implements LeitorDao {
 				leitor.setEmail(resultSet.getString("email"));
 				leitor.setSenha(resultSet.getString("senha"));
 				leitor.setPessoaId(resultSet.getInt("pessoa_id"));
+				leitor.setTipo("LEITOR");
 			}
 
 		} catch (final Exception e) {
@@ -261,36 +263,6 @@ public class LeitorDaoImpl implements LeitorDao {
 		}
 	}
 
-	public List<Leitor> login() {
-		final List<Leitor> leitors = new ArrayList<Leitor>();
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-			connection = ConnectionFactory.getConnection();
-			final String sql = "SELECT * FROM leitor;";
-
-			preparedStatement = connection.prepareStatement(sql);
-			resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next()) {
-				final Leitor leitor = new Leitor();
-				leitor.setId(resultSet.getInt("id"));
-				leitor.setEmail(resultSet.getString("email"));
-				leitor.setSenha(resultSet.getString("senha"));
-				leitors.add(leitor);
-			}
-
-		} catch (final Exception e) {
-			System.out.println("Não foi possível resgatar os Leitores ou houve um erro interno no sistema");
-		} finally {
-			ConnectionFactory.close(resultSet, preparedStatement, connection);
-		}
-
-		return leitors;
-	}
-
 	public int checkEmail(final String email) {
 
 		Connection connection = null;
@@ -357,5 +329,49 @@ public class LeitorDaoImpl implements LeitorDao {
 		} finally {
 			ConnectionFactory.close(preparedStatement, connection);
 		}
+	}
+	
+	public Leitor validateUsernameAndPassword(final String username, final String password) {
+		Leitor leitor = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = ConnectionFactory.getConnection();
+			final String sql = "SELECT * FROM leitor L inner join pessoa P on L.pessoa_id = P.id WHERE email = ? AND senha = ?;";
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				leitor = new Leitor();
+				leitor.setId(resultSet.getInt("id"));
+				leitor.setCpf(resultSet.getString("cpf"));
+				leitor.setNome(resultSet.getString("nome"));
+				leitor.setRua(resultSet.getString("rua"));
+				leitor.setNumero(resultSet.getInt("numero"));
+				leitor.setBairro(resultSet.getString("bairro"));
+				leitor.setCidade(resultSet.getString("cidade"));
+				leitor.setEstado(resultSet.getString("estado"));
+				leitor.setTelefone(resultSet.getString("telefone"));
+				leitor.setMatricula(resultSet.getInt("matricula"));
+				leitor.setEmail(resultSet.getString("email"));
+				leitor.setSenha(resultSet.getString("senha"));
+				
+				leitor.setTipo("LEITOR");
+
+			}
+
+		} catch (final Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionFactory.close(resultSet, preparedStatement, connection);
+		}
+
+		return leitor;
 	}
 }

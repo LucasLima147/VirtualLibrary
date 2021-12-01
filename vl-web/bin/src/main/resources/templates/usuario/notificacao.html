@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Notificações</title>
+</head>
+
+<body>
+	<div layout:fragment="body">
+
+
+
+
+		<br> <br> <br>
+
+		<main>
+			<div class="container-fluid">
+				<h1 class="mt-4">Notificações</h1>
+
+				<div class="row">
+
+					<div class="mb-2 col-12 col-sm-5">
+						<div class="mb-2 card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-12">MEUS EMPRÉSTIMOS</div>
+
+								</div>
+								<hr>
+								<div class="alert alert-danger col-sm-12" th:if="${lastLoan.codigo == 0}">
+									<span class="font-weight-bold align-middle">Não há registros de empréstimos</span>
+								</div>
+
+								<div class="table-responsive">
+
+									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Cód. Empréstimo</th>
+												<th>Função</th>
+
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>ID</th>
+												<th>Cód. Empréstimo</th>
+												<th>Função</th>
+											</tr>
+										</tfoot>
+
+
+										<tbody>
+											<tr th:each="emprestimo : ${listaDeEmprestimo}"
+												th:unless="${emprestimo.id == -1}">
+												<td th:text="${emprestimo.id}">108 (codigo do livro)</td>
+												<td th:text="${emprestimo.codigo}">nome do livro</td>
+												<td>
+													<a th:href="@{/account/my-previous-loans/{idEmprestimo} (idEmprestimo = ${emprestimo.id})}"
+														class="btn btn-info"><i class="fas fa-comment-medical"></i>
+														FAZER SOLICITAÇÃO
+													</a>
+
+												</td>
+											</tr>
+
+										</tbody>
+
+									</table>
+
+								</div>
+
+
+
+							</div>
+						</div>
+					</div>
+
+					<div class="mb-2 col-12 col-sm-7">
+
+						<div class="mb-2 card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-12 font-weight-bold">Informações
+										refente ao seu último emprestimo</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-12">Código de registro do empréstimo</div>
+									<div class="col-sm-12 font-weight-bold" th:text="${lastLoan.codigo}">1234s</div>
+									<div class="alert alert-danger col-sm-12" th:if="${lastLoan.codigo == 0}">
+										<span class="font-weight-bold align-middle">Você não
+											tem nenhum empréstimo recente</span>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-12">Data/Hora da realziação do empréstimo</div>
+									<div class="col-sm-12 font-weight-bold" th:text="${lastLoan.dataRealizacao}">1234s
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-12">
+										<a th:href="@{/account/my-previous-loans/{idEmprestimo} (idEmprestimo = ${lastLoan.id})}"
+											class="btn btn-info col-12" th:unless="${lastLoan.id == -1}"><i
+												class="fas fa-comment-medical"></i> FAZER SOLICITAÇÃO SOBRE ESTE
+											EMPRÉSTIMO</a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+
+				</div>
+
+
+
+			</div>
+		</main>
+
+
+	</div>
+</body>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Acervo</title>
+</head>
+<body>
+	<div layout:fragment="body">
+
+
+		<br> <br>
+
+		<h1>Acervo de Livros</h1>
+
+
+		<div class="row col-12">
+			<div class="col-12">
+				<a th:href="@{/livro/register}" class="btn btn-success col-12">Adicionar
+					novo livro</a>
+			</div>
+			
+		</div>
+
+		<hr>
+		
+
+		<!-- Livros -->
+		<section class="menu-livro">
+
+			<!-- 
+                Extra small     < 576   .col-
+                Small           >= 576  .col-sm-
+                Medium          >= 768  .col-md-
+                Large           >= 992  .col-lg-
+                Extra large     >=1200  .col-xl-
+            -->
+
+			<div class="card livro" th:each="livro : ${listaDeLivros}">
+
+				<img class="card-img-top img-livro"
+					src="../resources/assets/img/capa-livros/senhor-dos-aneis.png"
+					alt="Card image cap">
+				<div class="card-body">
+					<label class="card-text nome-livro" th:text="${livro.titulo}">O SENHOR DOS ANÉIS</label>
+					<a th:href="@{/livro/edit/{id} (id = ${livro.id})}" class="btn btn-info">Editar</a> 
+					<a th:href="@{/livro/delete/{id} (id = ${livro.id})}" class="btn btn-danger">Deletar</a>
+				</div>
+				</a>
+			</div>
+		</select>
+	</div>
+</body>
+</html>

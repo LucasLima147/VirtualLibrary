@@ -2,18 +2,16 @@ begin;
 
 -- tabela pessoa
 insert into pessoa values
-    (default, '321.456.808.96', 'Lívia Maria', 'rua 64', 968, 'bairro 50', 'Pouso Alegre', 'SP', '(35)99724-9006'),
     (default, '111.222.333-44', 'lucas lima', 'rua 1', 7, 'bairro 1', 'conceição dos Ouros', 'MG', '(35)99213-6012'),
     (default, '555.666.777-88', 'William de Paula', 'rua 2', 6, 'bairro 2', 'Itajuba', 'RJ', '(35)99724-9006'),
     (default, '456.123.789-74', 'Magda', 'rua 30', 468, 'Quilombo', 'Conceição dos Ouros', 'SP', '(35)98460-3031'),
     (default, '159.753.741-89', 'Lucy', 'rua 50', 754, 'bairro 2', 'Pouso Alegre', 'MG', '(35)99093-5464'),
     (default, '999.101.111-12', 'Vitor', 'rua 10', 7, 'bairro 1', 'Santa Rita do Sapucai', 'SP', '(35)99192-6673'),
-    (default, '456.159.753-85', 'Lupin', 'rua 20', 100, 'bairro 3', 'Conceição dos Ouros', 'MG', '(35)99966-5394'),
     (default, '000.000.000-00', 'Admin', 'rua', 365, 'bairro', 'cidade', 'MG', '(00)0000-0000');
 
 -- tabela administrador
 insert into administrador values
-    (default, 'admin@admin.com', 'admin', 8);
+    (default, 'admin@admin.com', 'admin', (select id from pessoa P where P.cpf = '000.000.000-00'));
 
 -- tabela leitor
 insert into leitor values

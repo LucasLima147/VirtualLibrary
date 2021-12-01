@@ -10,16 +10,16 @@ public interface LeitorService {
 
 	Leitor readById(int id);
 
-	int login(String email, String password);
-
 	int create(Leitor entity);
 
 	boolean update(Leitor entity);
 
 	boolean delete(int id);
 
-	int checkEmail(String email);
-
 	boolean recoveryPasswor(int idUser, String newPassword);
+
+	Leitor validateLogin(String encodeData);
+
+	int checkEmail(String email);
 
 }

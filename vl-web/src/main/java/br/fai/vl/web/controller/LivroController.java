@@ -15,7 +15,7 @@ import br.fai.vl.model.Editora;
 import br.fai.vl.model.Genero;
 import br.fai.vl.model.Leitor;
 import br.fai.vl.model.Livro;
-import br.fai.vl.web.model.Account;
+import br.fai.vl.web.security.provider.VlAuthenticationProvider;
 import br.fai.vl.web.service.AutorService;
 import br.fai.vl.web.service.EditoraService;
 import br.fai.vl.web.service.EmprestimoService;
@@ -42,6 +42,9 @@ public class LivroController {
 	@Autowired
 	private EmprestimoService emprestimoService;
 
+	@Autowired
+	private VlAuthenticationProvider authenticationProvider;
+
 	@GetMapping("/list")
 	public String getAcervo(final Model model) {
 		final List<Livro> livroList = service.readAll();
@@ -51,17 +54,9 @@ public class LivroController {
 
 	@GetMapping("/list-adm")
 	public String getAcervoAdm(final Model model) {
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			if (Account.getPermissionLevel() >= 2) {
-				final List<Livro> livroList = service.readAll();
-				model.addAttribute("listaDeLivros", livroList);
-				return "livro/acervo-adm";
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
+		final List<Livro> livroList = service.readAll();
+		model.addAttribute("listaDeLivros", livroList);
+		return "livro/acervo-adm";
 
 	}
 
@@ -81,49 +76,28 @@ public class LivroController {
 	@GetMapping("/finalizar-emprestimo/{idLivro}")
 	public String getFinalizarEmprestimo(@PathVariable final int idLivro, final Model model) {
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			model.addAttribute("idLivro", idLivro);
+		final Leitor leitor = leitorService.readById(authenticationProvider.getAuthenticatedUser().getId());
 
-			if (Account.getPermissionLevel() == 1) {
+		model.addAttribute("leitor", leitor.getId());
+		model.addAttribute("dadosDoUsuario", leitor);
 
-				final Leitor leitor = leitorService.readById(Account.getIdUser());
-
-				model.addAttribute("leitor", leitor.getId());
-				model.addAttribute("dadosDoUsuario", leitor);
-
-				return "livro/finalizar-emprestimo";
-
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
+		return "livro/finalizar-emprestimo";
 
 	}
 
 	@GetMapping("/register")
 	public String getRegisterLivro(final Model model, final Livro livro) {
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			if (Account.getPermissionLevel() >= 1) {
+		final List<Genero> generos = generoService.readAll();
+		model.addAttribute("generoList", generos);
 
-				final List<Genero> generos = generoService.readAll();
-				model.addAttribute("generoList", generos);
+		final List<Autor> autores = autorService.readAll();
+		model.addAttribute("autorList", autores);
 
-				final List<Autor> autores = autorService.readAll();
-				model.addAttribute("autorList", autores);
+		final List<Editora> editoras = editoraService.readAll();
+		model.addAttribute("editoraList", editoras);
 
-				final List<Editora> editoras = editoraService.readAll();
-				model.addAttribute("editoraList", editoras);
-
-				return "livro/criar-livro";
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
+		return "livro/criar-livro";
 
 	}
 
@@ -141,28 +115,19 @@ public class LivroController {
 	@GetMapping("/edit/{id}")
 	public String getEditarLivro(@PathVariable final int id, final Model model) {
 
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			if (Account.getPermissionLevel() >= 2) {
+		final List<Genero> generos = generoService.readAll();
+		model.addAttribute("generoList", generos);
 
-				final List<Genero> generos = generoService.readAll();
-				model.addAttribute("generoList", generos);
+		final List<Autor> autores = autorService.readAll();
+		model.addAttribute("autorList", autores);
 
-				final List<Autor> autores = autorService.readAll();
-				model.addAttribute("autorList", autores);
+		final List<Editora> editoras = editoraService.readAll();
+		model.addAttribute("editoraList", editoras);
 
-				final List<Editora> editoras = editoraService.readAll();
-				model.addAttribute("editoraList", editoras);
+		final Livro livro = service.readById(id);
+		model.addAttribute("livro", livro);
 
-				final Livro livro = service.readById(id);
-				model.addAttribute("livro", livro);
-
-				return "livro/editar-livro";
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
+		return "livro/editar-livro";
 	}
 
 	@PostMapping("/update")
@@ -174,18 +139,9 @@ public class LivroController {
 
 	@GetMapping("/delete/{id}")
 	private String delete(@PathVariable final int id, final Model model) {
-		if (!Account.isLogin()) {
-			return "redirect:/account/entrar";
-		} else {
-			if (Account.getPermissionLevel() >= 2) {
+		service.delete(id);
 
-				service.delete(id);
-
-				return "redirect:/livro/list-adm";
-			} else {
-				return "redirect:/account/entrar";
-			}
-		}
+		return "redirect:/livro/list-adm";
 	}
 
 	@PostMapping("/emprestrar-livro/{idLivro}/{leitorId}")
@@ -193,11 +149,10 @@ public class LivroController {
 
 		final int id = emprestimoService.create(idLivro, leitorId);
 		if (id != -1) {
+			erro = false;
 			return "redirect:/account/my-loans";
 		} else {
-
 			erro = true;
-
 			return "redirect:/livro/detail/" + idLivro;
 		}
 
