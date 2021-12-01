@@ -31,8 +31,10 @@ public class BibliotecarioRestController {
 
 	@GetMapping("/read-by-id/{id}")
 	public ResponseEntity<Bibliotecario> readById(@PathVariable("id") final int id) {
-
-		return ResponseEntity.ok(service.readById(id));
+		
+		Bibliotecario bibliotecario = service.readById(id);
+		
+		return ResponseEntity.ok(bibliotecario);
 	}
 
 	@PostMapping("/create")
@@ -52,15 +54,9 @@ public class BibliotecarioRestController {
 
 		return ResponseEntity.ok(service.delete(id));
 	}
-
-	@PostMapping("/login")
-	public ResponseEntity<Integer> login(@RequestBody final Bibliotecario entity) {
-
-		return ResponseEntity.ok(service.login(entity.getEmail(), entity.getSenha()));
-	}
-
+	
 	@PostMapping("/check-mail")
-	public ResponseEntity<Integer> checkEmail(@RequestBody final Bibliotecario entity) {
+	public ResponseEntity<Integer> checkMail(@RequestBody final Bibliotecario entity) {
 
 		return ResponseEntity.ok(service.checkEmail(entity.getEmail()));
 	}

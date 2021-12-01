@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import br.fai.vl.dto.EntregaDTO;
 import br.fai.vl.model.Entrega;
 import br.fai.vl.web.service.EntregaService;
+import br.fai.vl.web.service.RestService;
 
 @Service
 public class EntregaServiceImpl implements EntregaService {
@@ -57,15 +59,14 @@ public class EntregaServiceImpl implements EntregaService {
 
 	@Override
 	public int create(final Entrega entity) {
-		final String endpoint = "http://localhost:8085/api/v1/entrega/create";
+		final String endpoint = "http://localhost:8085//api/v1/entrega/create";
 		int id = Integer.valueOf(-1);
 
 		try {
-			// faz a chamada da API
-			final RestTemplate restTemplace = new RestTemplate();
-			// receber minha entidade
-			final HttpEntity<Entrega> httpEntity = new HttpEntity<Entrega>(entity);
-			final ResponseEntity<Integer> responseEntity = restTemplace.exchange(endpoint, HttpMethod.POST, httpEntity,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<Entrega> httpEntity = new HttpEntity<Entrega>(entity, headers);
+			final ResponseEntity<Integer> responseEntity = restTemplate.exchange(endpoint, HttpMethod.POST, httpEntity,
 					Integer.class);
 			id = responseEntity.getBody();
 
@@ -119,13 +120,14 @@ public class EntregaServiceImpl implements EntregaService {
 
 	@Override
 	public String checkDeliveryRequest(final int idEmprestimo, final int idLeitor) {
-		final String endpoint = "http://localhost:8085/api/v1/entrega/check-delivery-request/" + idEmprestimo + "/"
+		final String endpoint = "http://localhost:8085//api/v1/entrega/check-delivery-request/" + idEmprestimo + "/"
 				+ idLeitor;
 		String response = null;
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<String> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					String.class);
 
@@ -145,7 +147,8 @@ public class EntregaServiceImpl implements EntregaService {
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<EntregaDTO[]> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET,
 					httpEntity, EntregaDTO[].class);
 
@@ -163,9 +166,10 @@ public class EntregaServiceImpl implements EntregaService {
 		boolean response = false;
 
 		try {
-			final RestTemplate restTemplace = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
-			final ResponseEntity<Boolean> requestResponse = restTemplace.exchange(endpoint, HttpMethod.GET, httpEntity,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
+			final ResponseEntity<Boolean> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					Boolean.class);
 
 			response = requestResponse.getBody();
@@ -179,13 +183,14 @@ public class EntregaServiceImpl implements EntregaService {
 
 	@Override
 	public boolean acceptDelivery(final int id) {
-		final String endpoint = "http://localhost:8085/api/v1/entrega/accept-delivery/" + id;
+		final String endpoint = "http://localhost:8085//api/v1/entrega/accept-delivery/" + id;
 		boolean response = false;
 
 		try {
-			final RestTemplate restTemplace = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
-			final ResponseEntity<Boolean> requestResponse = restTemplace.exchange(endpoint, HttpMethod.GET, httpEntity,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
+			final ResponseEntity<Boolean> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					Boolean.class);
 
 			response = requestResponse.getBody();
@@ -200,12 +205,13 @@ public class EntregaServiceImpl implements EntregaService {
 	@Override
 	public List<EntregaDTO> closedDeliveryOrderList() {
 
-		final String endpoint = "http://localhost:8085/api/v1/entrega/closed-delivery-order-list";
+		final String endpoint = "http://localhost:8085//api/v1/entrega/closed-delivery-order-list";
 		List<EntregaDTO> response = null;
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<EntregaDTO[]> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET,
 					httpEntity, EntregaDTO[].class);
 

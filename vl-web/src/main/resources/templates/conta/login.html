@@ -12,7 +12,6 @@
 
 		<br>
 		<br>
-		<br>
 		<main>
 			<div class="container login">
 				<div class="row justify-content-center">
@@ -23,29 +22,14 @@
 							</div>
 
 							<div class="card-body">
-								<div class="alert alert-danger col-sm-12"
-										th:if="${login}">
-										<span class="font-weight-bold align-middle">Login ou senha inválidos</span>
-								</div>
-								<form th:action="@{/account/login}" method="post" th:object="${account}">
+								<form th:action="@{/login}" method="post">
 									<div class="form-group">
-										<label class="small mb-1" for="inputEmailAddress">Email</label>
-										<input class="form-control py-4" id="inputEmailAddress"
-											placeholder="Insira o endereço de email" name="userName" th:field="${account.userEmail}" />
+										<label class="small mb-1" for="username">Email</label>
+										<input class="form-control py-4" placeholder="Insira o endereço de email" name="username" id="username" />
 									</div>
 									<div class="form-group">
-										<label class="small mb-1" for="inputPassword">Senha</label>
-										<input class="form-control py-4" id="inputPassword" type="password"
-											placeholder="Insira a senha" name="password" th:field="${account.userPassword}"/>
-									</div>
-									<div class="form-group">
-										<label class="small mb-1" for="inputEmailAddress">Tipo de Usuário:</label>
-
-										<select class="form-control" th:field="${account.levelRequest}">
-											<option selected value="-1">Selecione...</option>
-											<option value="1" th:text="Leitor"></option>
-											<option value="2" th:text="Bibliotecario"></option>
-										</select>
+										<label class="small mb-1" for="Password">Senha</label>
+										<input class="form-control py-4" id="password" type="password" placeholder="Insira a senha" name="password" />
 									</div>
 
 									<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
@@ -64,10 +48,6 @@
 				</div>
 			</div>
 		</main>
-
-		<br>
-		<br>
-		<br>
 		<br>
 		<br>
 	</div>

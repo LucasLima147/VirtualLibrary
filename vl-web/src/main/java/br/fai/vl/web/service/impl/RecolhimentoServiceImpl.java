@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import br.fai.vl.dto.RecolhimentoDTO;
 import br.fai.vl.model.Recolhimento;
 import br.fai.vl.web.service.RecolhimentoService;
+import br.fai.vl.web.service.RestService;
 
 @Service
 public class RecolhimentoServiceImpl implements RecolhimentoService {
@@ -61,11 +63,10 @@ public class RecolhimentoServiceImpl implements RecolhimentoService {
 		int id = Integer.valueOf(-1);
 
 		try {
-			// faz a chamada da API
-			final RestTemplate restTemplace = new RestTemplate();
-			// receber minha entidade
-			final HttpEntity<Recolhimento> httpEntity = new HttpEntity<Recolhimento>(entity);
-			final ResponseEntity<Integer> responseEntity = restTemplace.exchange(endpoint, HttpMethod.POST, httpEntity,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<Recolhimento> httpEntity = new HttpEntity<Recolhimento>(entity, headers);
+			final ResponseEntity<Integer> responseEntity = restTemplate.exchange(endpoint, HttpMethod.POST, httpEntity,
 					Integer.class);
 			id = responseEntity.getBody();
 
@@ -119,13 +120,14 @@ public class RecolhimentoServiceImpl implements RecolhimentoService {
 
 	@Override
 	public String requestCollection(final int idEmprestimo, final int idLeitor) {
-		final String endpoint = "http://localhost:8085/api/v1/recolhimento/request-collection/" + idEmprestimo + "/"
+		final String endpoint = "http://localhost:8085//api/v1/recolhimento/request-collection/" + idEmprestimo + "/"
 				+ idLeitor;
 		String response = null;
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<String> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					String.class);
 
@@ -140,12 +142,13 @@ public class RecolhimentoServiceImpl implements RecolhimentoService {
 	@Override
 	public List<RecolhimentoDTO> pickUpOrderList() {
 
-		final String endpoint = "http://localhost:8085/api/v1/recolhimento/pickup-order-list";
+		final String endpoint = "http://localhost:8085//api/v1/recolhimento/pickup-order-list";
 		List<RecolhimentoDTO> response = null;
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<RecolhimentoDTO[]> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET,
 					httpEntity, RecolhimentoDTO[].class);
 
@@ -159,13 +162,14 @@ public class RecolhimentoServiceImpl implements RecolhimentoService {
 
 	@Override
 	public boolean refuseCollection(final int id) {
-		final String endpoint = "http://localhost:8085/api/v1/recolhimento/refuse-collection/" + id;
+		final String endpoint = "http://localhost:8085//api/v1/recolhimento/refuse-collection/" + id;
 		boolean response = false;
 
 		try {
-			final RestTemplate restTemplace = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
-			final ResponseEntity<Boolean> requestResponse = restTemplace.exchange(endpoint, HttpMethod.GET, httpEntity,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
+			final ResponseEntity<Boolean> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					Boolean.class);
 
 			response = requestResponse.getBody();
@@ -179,13 +183,14 @@ public class RecolhimentoServiceImpl implements RecolhimentoService {
 
 	@Override
 	public boolean acceptCollection(final int id) {
-		final String endpoint = "http://localhost:8085/api/v1/recolhimento/accept-collection/" + id;
+		final String endpoint = "http://localhost:8085//api/v1/recolhimento/accept-collection/" + id;
 		boolean response = false;
 
 		try {
-			final RestTemplate restTemplace = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
-			final ResponseEntity<Boolean> requestResponse = restTemplace.exchange(endpoint, HttpMethod.GET, httpEntity,
+			final RestTemplate restTemplate = new RestTemplate();
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
+			final ResponseEntity<Boolean> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET, httpEntity,
 					Boolean.class);
 
 			response = requestResponse.getBody();
@@ -200,12 +205,13 @@ public class RecolhimentoServiceImpl implements RecolhimentoService {
 	@Override
 	public List<RecolhimentoDTO> closedPickUpOrderList() {
 
-		final String endpoint = "http://localhost:8085/api/v1/recolhimento/closed-pickup-order-list";
+		final String endpoint = "http://localhost:8085//api/v1/recolhimento/closed-pickup-order-list";
 		List<RecolhimentoDTO> response = null;
 
 		try {
 			final RestTemplate restTemplate = new RestTemplate();
-			final HttpEntity<String> httpEntity = new HttpEntity<String>("");
+			final HttpHeaders headers = RestService.getRequestHeaders();
+			final HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
 			final ResponseEntity<RecolhimentoDTO[]> requestResponse = restTemplate.exchange(endpoint, HttpMethod.GET,
 					httpEntity, RecolhimentoDTO[].class);
 

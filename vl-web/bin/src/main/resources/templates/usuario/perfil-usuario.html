@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Perfil</title>
+</head>
+<body>
+	<div layout:fragment="body">
+
+
+
+
+		<br> <br> <br>
+
+
+		<main>
+			<div class="container-fluid">
+				<h1 class="mt-4">Perfil</h1>
+
+				<div class="row">
+
+					<div class="mb-2 col-12 col-sm-5">
+						<div class="card">
+							<div class="card-body">
+								<div class="mb-3 text-center">
+									<img
+										src="../../resources/assets/img/logo/VL com fundo sem nome2.png"
+										width="200" class="rounded-circle img-fluid" />
+								</div>
+								<div class="mb-2">
+									<p class="text-primary text-center">Zézinho</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="mb-2">
+							<a th:href=@{/livro/list}
+								class="btn btn-warning col-12 btn-enviar-livro">Enviar livro</a>
+						</div>
+					</div>
+					
+					<div class="mb-2 col-12 col-sm-7">
+						<form action="" method="POST" th:if="${tipoDeUsuario == 'leitor'}" th:object="${usuario}">
+							<div class="mb-2 card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm-3">Nome</div>
+										<div class="col-sm-9">
+											<label th:text="${usuario.nome}" />
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">Email</div>
+										<div class="col-sm-9" >
+											<label th:text="${usuario.email}" />
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">Telefone</div>
+										<div class="col-sm-9" th:text="${usuario.telefone}">(35) 91234-1234</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">Estado</div>
+										<div class="col-sm-9" th:text="${usuario.estado}">Minas Gerais</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-sm-3">Cidade</div>
+										<div class="col-sm-9" th:text="${usuario.cidade}">Santa Rita do Sapucaí</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="mb-2">
+								<input type="hidden" th:field="${usuario.id}">
+								<a th:href=@{/usuario/editar-perfil} class="btn btn-primary col-12">Editar</a>
+							</div>
+						</form>
+					</div>
+
+
+
+				</div>
+
+
+
+			</div>
+		</main>
+
+		<br> <br>
+
+	</div>
+</body>
+</html>

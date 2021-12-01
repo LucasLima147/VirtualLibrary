@@ -8,11 +8,11 @@ public interface EditoraService {
 
 	List<Editora> readAll();
 
-	Editora readById(int id);
-
 	int create(Editora entity);
 
 	boolean update(Editora entity);
 
 	boolean delete(int id);
+
+	Editora readById(int id);
 }

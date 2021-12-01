@@ -10,12 +10,20 @@ public abstract class Pessoa{
 	private String cidade;
 	private String estado;
 	private String telefone;
+	private String token;
+	private String tipo;
 
 	public String getCpf() {
 		return cpf;
 	}
 	public void setCpf(final String cpf) {
 		this.cpf = cpf;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	public String getNome() {
 		return nome;
@@ -64,6 +72,12 @@ public abstract class Pessoa{
 	}
 	public void setId(final int id) {
 		this.id = id;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

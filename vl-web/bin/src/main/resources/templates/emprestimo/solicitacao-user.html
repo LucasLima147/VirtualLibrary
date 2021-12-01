@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+
+<head>
+<meta charset="UTF-8">
+<title>Notificações</title>
+</head>
+
+<body>
+	<div layout:fragment="body">
+		<br> <br> <br> <br> <br>
+
+		<main>
+			<div class="container-fluid">
+				<h1 class="mt-4">Fazer Solicitação</h1>
+
+				<div class="row">
+
+					<div class="mb-2 col-12 col-sm-2">
+						<div class="card">
+							<div class="card-body">
+								<div class="mb-3 text-center">
+									<img
+										src="../../../resources/assets/img/logo/VL com fundo sem nome2.png"
+										width="200" class="rounded-circle img-fluid" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="mb-2 col-12 col-sm-10">
+
+						<div class="mb-2 card">
+							<div class="card-body">
+								<br>
+
+								<div class="table-responsive">
+
+									<table class="table table-bordered" id="dataTable" width="100%"
+										cellspacing="0">
+										<thead>
+											<tr>
+												<th>código do empréstimo</th>
+												<th>Capa</th>
+												<th>Id_Exemplar</th>
+												<th>Livro</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>código do empréstimo</th>
+												<th>Capa</th>
+												<th>Id_Exemplar</th>
+												<th>Livro</th>
+											</tr>
+										</tfoot>
+										<tbody>
+											<tr th:each="loan : ${loans}">
+												<td th:text="${loan.codEmprestimo}">1</td>
+												<td><img
+													src="../../../resources/assets/img/capa-livros/a-arte-da-guerra.png"
+													alt="" style="width: 100px;"></td>
+												<td th:text="${loan.idExemplar}">1</td>
+												<td style="text-align: center; vertical-align: middle;"
+													th:text="${loan.nomeLivro}">Tiburssinho Tiburrsius</td>
+											</tr>
+
+										</tbody>
+									</table>
+
+								</div>
+
+								<hr>
+
+								<div class="row">
+									<br> <br>
+									<div class="row col-12">
+										<div class="col-6">
+											<div><strong>Resposta da solicitação de entrega</strong></div>
+											<label type="text" class="form-control"
+												th:text="${situacaoEntrega}" readonly></label>
+										</div>
+										<div class="col-6">
+											<div><strong>Resposta da solicitação de recolhimento</strong></div>
+											<label type="text" class="form-control"
+												th:text="${situacaoRecolhimento}" readonly></label>
+										</div>
+									</div>
+
+
+								</div>
+								<br> <br>
+
+
+
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+		</main>
+	</div>
+</body>

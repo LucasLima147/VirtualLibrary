@@ -38,13 +38,32 @@
                 <i class="fas fa-user fa-fw"></i>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" th:href="@{/account/perfil-usuario}"><i class="fas fa-user-alt icon-menu"></i>Perfil</a>
-                <a class="dropdown-item" th:href="@{/account/editar-perfil}"><i class="fas fa-user-edit icon-menu"></i>Editar Perfil</a>
-                <a class="dropdown-item" th:href="@{/account/notificacao}"><i class="fas fa-bell icon-menu"></i>Notificação <span
-                        class="badge  badge-pill badge-danger"></span></a>
-                <a class="dropdown-item" th:href="@{/account/my-loans}"><i class="fas fa-shopping-cart icon-menu"></i>Finalizar Emprestimo<span
-                        class="badge  badge-pill badge-danger"></span></a>
-                <a class="dropdown-item" th:href="@{/account/get-out}"><i class="fas fa-sign-out-alt icon-menu"></i>Sair</a>
+                <div sec:authorize="isAuthenticated()">
+					<a class="dropdown-item" th:href="@{/account/perfil-usuario}">
+						<i class="fas fa-user-alt icon-menu"></i>Perfil
+					</a>
+					<a class="dropdown-item" th:href="@{/account/editar-perfil}">
+						<i class="fas fa-user-edit icon-menu"></i>Editar Perfil
+					</a>
+					<div sec:authorize="hasRole('LEITOR')">
+						<a class="dropdown-item" th:href="@{/account/notificacao}">
+							<i class="fas fa-bell icon-menu"></i>Notificação
+							<span class="badge  badge-pill badge-danger"></span>
+						</a>
+						<a class="dropdown-item" th:href="@{/account/my-loans}">
+							<i class="fas fa-shopping-cart icon-menu"></i>Finalizar Emprestimo
+							<span class="badge  badge-pill badge-danger"></span>
+						</a>
+					</div>
+					<a class="dropdown-item" th:href="@{/get-out}"><i class="fas fa-sign-out-alt icon-menu"></i>Sair
+					</a>
+				</div>
+				
+				<div sec:authorize="!isAuthenticated()">
+					<a class="dropdown-item" th:href="@{/account/entrar}">
+						<i class="fas fa-sign-in-alt icon-menu"></i>Entrar
+					</a>
+				</div>
             </div>
         </div>
 

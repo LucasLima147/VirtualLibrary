@@ -16,8 +16,6 @@ public interface LeitorService {
 
 	boolean delete(int id);
 
-	boolean login(Leitor entity);
-
 	int checkEmail(Leitor entity);
 
 	boolean recoveryPasswor(Leitor entity);

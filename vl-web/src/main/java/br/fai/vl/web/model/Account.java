@@ -3,8 +3,8 @@ package br.fai.vl.web.model;
 public class Account {
 	private static int idUser = 0;
 	private static boolean login = false;
+	private static boolean isBibliotecario;
 	private static int permissionLevel = 0;
-	private static String pageRequest = "";
 	private static int idUserRecoveryPassword = 0;
 	private static int typeUserRecoveryPassword = 0;
 
@@ -26,22 +26,19 @@ public class Account {
 
 	private String userEmail = "";
 	private String userPassword = "";
-	private int levelRequest = 0;
+	private static int levelRequest = 0;
+	
 
-	public int getLevelRequest() {
+	public static int getLevelRequest() {
 		return levelRequest;
-	}
-
-	public void setLevelRequest(final int levelRequest) {
-		this.levelRequest = levelRequest;
-	}
-
-	public static String getPageRequest() {
-		return Account.pageRequest;
 	}
 
 	public String getUserEmail() {
 		return userEmail;
+	}
+
+	public static void setLevelRequest(int levelRequest) {
+		Account.levelRequest = levelRequest;
 	}
 
 	public void setUserEmail(final String userEmail) {
@@ -54,10 +51,6 @@ public class Account {
 
 	public void setUserPassword(final String userPassword) {
 		this.userPassword = userPassword;
-	}
-
-	public static void setPageRequest(final String pageRequest) {
-		Account.pageRequest = pageRequest;
 	}
 
 	public static void setIdUser(final int idUser) {
@@ -82,6 +75,14 @@ public class Account {
 
 	public static void setPermissionLevel(final int permissionLevel) {
 		Account.permissionLevel = permissionLevel;
+	}
+
+	public static boolean isBibliotecario() {
+		return isBibliotecario;
+	}
+
+	public static void setBibliotecario(boolean isBibliotecario) {
+		Account.isBibliotecario = isBibliotecario;
 	}
 
 }
