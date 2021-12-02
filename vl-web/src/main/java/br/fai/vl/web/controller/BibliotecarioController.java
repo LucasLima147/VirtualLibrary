@@ -21,7 +21,6 @@ public class BibliotecarioController {
 	private BibliotecarioService service;
 	@Autowired
 	private VlAuthenticationProvider authenticationProvider;
-
 	private boolean camposCorretos = false;
 
 	@GetMapping("/detail/{id}")
@@ -104,9 +103,4 @@ public class BibliotecarioController {
 		return "redirect:/usuario/list";
 	}
 
-//	@GetMapping("/report/read-all-users")
-//	public ResponseEntity<byte[]> getAlluserReport() {
-//
-//		return ResponseEntity.badRequest().build();
-//	}
 }

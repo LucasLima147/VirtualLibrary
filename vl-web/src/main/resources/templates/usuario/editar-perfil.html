@@ -45,7 +45,9 @@
 									<div class="col-sm-3">Email</div>
 									<div class="col-sm-9">
 										<input type="text" class="form-control"
-											th:field="${user.email}">
+											th:field="${user.email}" readonly sec:authorize="hasRole('LEITOR')">
+										<input type="text" class="form-control"
+											th:field="${user.email}" sec:authorize="hasRole('BIBLIOTECARIO')">
 									</div>
 								</div>
 								<hr>

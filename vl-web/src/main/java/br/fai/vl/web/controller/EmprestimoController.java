@@ -110,6 +110,9 @@ public class EmprestimoController {
 		model.addAttribute("recolhimentos", recolhimentoDTO);
 		model.addAttribute("recolhimentosSolicitados", solicitacaoRecolhimentoDTO);
 
+		model.addAttribute("semSolicitacoes", false);
+		model.addAttribute("semRecolhimentos", false);
+
 		if (solicitacaoRecolhimentoDTO.isEmpty() || solicitacaoRecolhimentoDTO.size() == 0) {
 			model.addAttribute("semSolicitacoes", true);
 		}
@@ -182,4 +185,5 @@ public class EmprestimoController {
 
 		return "redirect:/emprestimo/list";
 	}
+
 }

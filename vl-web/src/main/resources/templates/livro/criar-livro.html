@@ -30,13 +30,13 @@
 											<label for="titulo">Titulo</label>
 										</div>
 										<div class="col-sm-5">
-											<input id="titulo" type="text" class="form-control" th:field="${livro.titulo}">
+											<input id="titulo" type="text" class="form-control" th:field="${livro.titulo}" required>
 										</div>
 										<div class="col-sm-2">
 											<label for="titulo">Quantidade de Exemplares</label>
 										</div>
 										<div class="col-sm-1">
-											<input type="number" class="form-control" th:field="${livro.qtdExemplar}">
+											<input type="number" class="form-control" th:field="${livro.qtdExemplar}" required>
 										</div>
 									</div>
 									<hr>
@@ -87,7 +87,7 @@
 											<label for="isbn">ISBN</label>
 										</div>
 										<div class="col-sm-9">
-											<input type="text" id="isbn" class="form-control" th:field="${livro.isbn}">
+											<input type="number" id="isbn" class="form-control" th:field="${livro.isbn}" required>
 										</div>
 									</div>
 									<hr>
@@ -96,7 +96,7 @@
 											<label for="dataLancamento">Numero de Páginas</label>
 										</div>
 										<div class="col-sm-9">
-											<input type="number" class="form-control" th:field="${livro.numPaginas}">
+											<input type="number" class="form-control" th:field="${livro.numPaginas}" required>
 										</div>
 									</div>
 									<hr>
@@ -105,7 +105,7 @@
 											<label for="descricao">Sinopse</label>
 										</div>
 										<div class="col-sm-9">
-											<textarea class="form-control" rows="3" th:field=="${livro.sinopse}"></textarea>
+											<textarea class="form-control" rows="3" th:field=="${livro.sinopse}" required></textarea>
 										</div>
 									</div>
 								</div>

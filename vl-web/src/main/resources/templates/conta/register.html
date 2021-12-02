@@ -40,17 +40,17 @@
 									<div class="form-row">
 										<div class="col-md-6">
 											<div class="form-group">
-												<label class="small mb-1" for="nome">Nome Completo</label><input
+												<label class="small mb-1" for="nome">Nome Completo</label><input required
 													class="form-control py-4" id="nome" type="text"
-													placeholder="Insira seu nome" th:field="${leitor.nome}" required/>
+													placeholder="Insira seu nome" th:field="${leitor.nome}"/>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label class="small mb-1" for="matricula">matricula</label><input
+												<label class="small mb-1" for="matricula">matricula</label><input required
 													class="form-control py-4" id="matricula" type="number"
 													placeholder="Insira o seu sobrenome"
-													th:field="${leitor.matricula}" required/>
+													th:field="${leitor.matricula}"/>
 											</div>
 										</div>
 									</div>
@@ -59,25 +59,25 @@
 									<div class="form-row">
 										<div class="col-md-3">
 											<div class="form-group">
-												<label class="small mb-1" for="cpf">CPF</label> <input
+												<label class="small mb-1" for="cpf">CPF</label> <input 
 													class="form-control py-4 cpf-mask" id="cpf" type="text"
 													placeholder="Ex: 000.000.000-00" th:field="${leitor.cpf}" required/>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label class="small mb-1" for="email">Email</label><input
+												<label class="small mb-1" for="email">Email</label><input required
 													class="form-control py-4" id="email" type="text"
 													placeholder="Ex: teste@teste.com"
-													th:field="${leitor.email}" required/>
+													th:field="${leitor.email}"/>
 											</div>
 										</div>
 										<div class="col-md-3">
 											<div class="form-group">
-												<label class="small mb-1" for="inputTelefone">Telefone</label><input
+												<label class="small mb-1" for="inputTelefone" required >Telefone</label><input
 													class="form-control py-4" id="inputTelefone" type="text"
 													placeholder="Ex: (12) 91234-1234"
-													th:field="${leitor.telefone}" required/>
+													th:field="${leitor.telefone}" />
 											</div>
 
 										</div>
@@ -150,15 +150,15 @@
 										</div>
 										<div class="col-md-5">
 											<div class="form-group">
-												<label class="small mb-1" for="inputBairro">Bairro</label><input
+												<label class="small mb-1" for="inputBairro">Bairro</label><input required
 													class="form-control py-4" id="inputBairro" type="text"
-													placeholder="Insira o bairro" th:field="${leitor.bairro}" required/>
+													placeholder="Insira o bairro" th:field="${leitor.bairro}" />
 											</div>
 										</div>
 
 										<div class="col-md-2">
 											<div class="form-group">
-												<label class="small mb-1" for="inputNúmero">Número</label><input
+												<label class="small mb-1" for="inputNúmero">Número</label><input 
 													class="form-control py-4" id="inputNúmero" type="number"
 													placeholder="nº" th:field="${leitor.numero}" required/>
 											</div>
@@ -168,7 +168,7 @@
 									<div class="form-row">
 										<div class="col-md-6">
 											<div class="form-group">
-												<label class="small mb-1" for="inputPassword">Senha</label><input
+												<label class="small mb-1" for="inputPassword">Senha</label><input 
 													class="form-control py-4" id="inputPassword"
 													type="password" placeholder="Insira a senha"
 													th:field="${leitor.senha}" required/>

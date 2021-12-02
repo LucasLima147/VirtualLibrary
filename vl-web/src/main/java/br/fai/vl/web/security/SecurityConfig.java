@@ -47,13 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/leitor/edit/**").hasAnyRole("LEITOR", "BIBLIOTECARIO")
 			.antMatchers("/leitor/update").hasAnyRole("LEITOR", "BIBLIOTECARIO")
 			.antMatchers("/leitor/delete/**").hasRole("BIBLIOTECARIO")
+			.antMatchers("/leitor/create").permitAll()
 			// bibliotecario
 			.antMatchers("/bibliotecario/register").hasAnyRole("BIBLIOTECARIO")
 			.antMatchers("/bibliotecario/detail/**").hasAnyRole("BIBLIOTECARIO")
 			.antMatchers("/bibliotecario/edit/**").hasAnyRole("BIBLIOTECARIO")
 			.antMatchers("/bibliotecario/update").hasAnyRole("BIBLIOTECARIO")
 			.antMatchers("/bibliotecario/delete/**").hasRole("BIBLIOTECARIO")
-//			.antMatchers("/bibliotecario/report/read-all-users").hasRole("BIBLIOTECARIO")
 			// livro
 			.antMatchers("/livro/list").permitAll()
 			.antMatchers("/livro/list-adm").hasRole("BIBLIOTECARIO")

@@ -28,8 +28,6 @@ import br.fai.vl.web.service.RecolhimentoService;
 @RequestMapping("/account")
 public class AccountController {
 
-	private boolean emailInvalido = false;
-
 	@Autowired
 	private LeitorService leitorService;
 
@@ -185,41 +183,27 @@ public class AccountController {
 		return "conta/password";
 	}
 
-	@PostMapping("/check-email")
-	private String checkEmail(final Account account, final Model model) {
-
-		System.out.println("Bateu aqui");
-
-		if (account.getLevelRequest() == 1) {
-			final Leitor leitor = new Leitor();
-			leitor.setEmail(account.getUserEmail());
-
-			if (leitorService.checkEmail(leitor) != -1) {
-
-				emailInvalido = false;
-				return "redirect:/account/nova-senha";
-			} else {
-				emailInvalido = true;
-				model.addAttribute("email", emailInvalido);
-				return "conta/password";
-			}
-
-		} else if (account.getLevelRequest() == 2) {
-			final Bibliotecario bibliotecario = new Bibliotecario();
-			bibliotecario.setEmail(account.getUserEmail());
-			if (bibliotecarioService.checkEmail(bibliotecario) != -1) {
-
-				emailInvalido = false;
-				return "redirect:/account/nova-senha";
-			} else {
-				emailInvalido = true;
-				model.addAttribute("email", emailInvalido);
-				return "conta/password";
-			}
-		} else {
-			return "conta/password";
-		}
-	}
+	/*
+	 * @PostMapping("/check-email") private String checkEmail(final Account account,
+	 * final Model model) {
+	 *
+	 * System.out.println("Bateu aqui");
+	 *
+	 * if (account.getUserEmail().contains("@vituallibrary.com")) { final
+	 * Bibliotecario bibliotecario = new Bibliotecario();
+	 *
+	 * bibliotecario.setEmail(account.getUserEmail()); if
+	 * (bibliotecarioService.checkEmail(bibliotecario) != -1) {
+	 *
+	 * emailInvalido = false; return "redirect:/account/nova-senha"; } }else { final
+	 * Leitor leitor = new Leitor(); leitor.setEmail(account.getUserEmail());
+	 *
+	 * if (leitorService.checkEmail(leitor) != -1) {
+	 *
+	 * emailInvalido = false; return "redirect:/account/nova-senha"; } else {
+	 * emailInvalido = true; model.addAttribute("email", emailInvalido); return
+	 * "conta/password"; } } }
+	 */
 
 	@GetMapping("/nova-senha")
 	private String getNovaSenha(final Account account) {
